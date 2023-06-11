@@ -16,8 +16,8 @@ def testdata():
         A dictionary containing test data.
     """
     test_data = {
-        "data 1": "data 1",
-        "data 2": "data 2"
+        "data1": "Hi my name is Jo",
+        "data2": "blah blah blah"
     }
     return test_data
 
