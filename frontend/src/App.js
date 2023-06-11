@@ -7,7 +7,7 @@ function App() {
   const [testdata, settestdata] = useState(null)
 
   function getData(){
-    fetch("/testdata")
+    fetch("http://localhost:5000/testdata")
     .then((response) => {
       if (!response.ok) {
         throw new Error("Request failed with status: " + response.status);

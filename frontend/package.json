@@ -15,7 +15,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start-backend": "cd /workspaces/Archi-EPD-Tracker-Web-App/backend && venv/bin/flask run --no-debugger",
+    "start-backend": "cd ../backend && env/Scripts/flask run --no-debugger",
     "start-react": "npm start",
     "start-all": "npm-run-all --parallel start-react start-backend",
     "build": "react-scripts build",
