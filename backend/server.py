@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -6,17 +6,13 @@ CORS(app)
 
 
 @app.route("/")
-def index():
-    return "Hello, World"
+def home():
+    return render_template('index.html')
 
 # Test API route
 @app.route("/testdata")
 def testdata():
-    """Handler for the /testdata route.
-
-    Returns:
-        A dictionary containing test data.
-    """
+    """Handler for the /testdata route"""
     test_data = {
         "data1": "Hi my name is Jo",
         "data2": "blah blah blah"
