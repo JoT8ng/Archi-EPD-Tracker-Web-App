@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     return(
-        <nav>
+        <nav className='navbar'>
             <Link to='/' className='logo'>
                 <span className='logo-text'>the Archi EPD Tracker</span>
             </Link>
