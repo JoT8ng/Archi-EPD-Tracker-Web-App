@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Home from './components/home';
+import Home from './pages/home';
 import Navbar from './components/navbar';
 import './App.css';
 
@@ -31,7 +31,7 @@ function App() {
     <Router>
       <Navbar />
       <Switch>
-        <Route path='/' exact component={Home} />
+        <Route path='/' element={<Home />} />
       </Switch>
       <div>
         <header>
