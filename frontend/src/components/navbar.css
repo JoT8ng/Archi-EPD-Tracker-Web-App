@@ -1,34 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap');
+
 .logo {
-    position: absolute;
+    text-decoration: none;
+    display: flex;
+    position: sticky;
     width: 356px;
     height: 37px;
-    left: calc(50% - 356px/2 - 346px);
-    top: calc(50% - 37px/2 - 510px);
 }
   
 .logo-text {
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 800;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
     font-size: 24px;
     line-height: 28px;
     color: #FFFCF2;
+    text-decoration: none;
 }
 
 .nav-text {
-    font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 600;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
     font-size: 24px;
     line-height: 28px;
     color: #FFFCF2;
 }
 
 .navbar {
-    position: absolute;
+    display: flex;
+    position: sticky;
+    align-items: center;
+    justify-content: center;
     width: 1728px;
     height: 90px;
-    left: 0px;
     top: 0px;
     background: #8FC0A9;
+}
+
+.nav-list {
+    display: flex;
+}
+
+.nav-list li {
+    list-style: none;
+    padding: 26px 30px;
+}
+
+.nav-list li a {
+    text-decoration: none;
 }
