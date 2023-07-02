@@ -9,6 +9,14 @@ CORS(app)
 def home():
     return render_template('index.html')
 
+@app.route("/tracker")
+def tracker():
+    return render_template('tracker.html')
+
+@app.route("/contact")
+def contact():
+    return render_template('contact.html')
+
 # Test API route
 @app.route("/testdata")
 def testdata():
