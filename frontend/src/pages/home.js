@@ -1,5 +1,8 @@
 import React from 'react';
 import './home.css';
+import ObjectivityIcon from '../components/ObjectivityIcon';
+import GreenProjectsIcon from '../components/greenprojects';
+import ResManufacturerIcon from '../components/resmanufacturer';
 
 const Home = () => {
     return (
@@ -21,6 +24,15 @@ const Home = () => {
                     can be used to earn credits for certifications like BREEAM and LEED etc
                 </p>
                 <h2>What benefits do EPDs offer?</h2>
+                <ObjectivityIcon />
+                <GreenProjectsIcon />
+                <ResManufacturerIcon />
+                <h3>Objectivity, Credibility, Transparency</h3>
+                <h4>Contributing to sustainable building design</h4>
+                <h5>Strengthens market positions of responsible manufacturers</h5>
+            </section>
+            <section className='three'>
+                <h1>LCA- Life Cycle Assessment What are the life-cycle stages?</h1>
             </section>
         </div>
     );

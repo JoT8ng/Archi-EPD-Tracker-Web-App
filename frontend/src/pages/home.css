@@ -101,3 +101,94 @@ section {
 
     color: #FFFCF2;
 }
+
+.two h3 {
+    position: absolute;
+    width: 240px;
+    height: 96px;
+    left: 380px;
+    top: 455px;
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    text-align: center;
+
+    color: #FFFCF2;
+    background: #6488BC;
+    border-radius: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.two h4 {
+    position: absolute;
+    width: 240px;
+    height: 96px;
+    left: 660px;
+    top: 455px;
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    text-align: center;
+
+    color: #FFFCF2;
+    background: #6488BC;
+    border-radius: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.two h5 {
+    position: absolute;
+    width: 220px;
+    height: 96px;
+    left: 940px;
+    top: 455px;
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    text-align: center;
+
+    color: #FFFCF2;
+    background: #6488BC;
+    border-radius: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.three {
+    background: #68B0AB;
+    position: relative;
+}
+
+.three h1 {
+    /* LCA- Life Cycle Assessment What are the life-cycle stages? */
+
+    position: absolute;
+    width: 340px;
+    height: 42px;
+    left: 380px;
+    top: 45px;
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 34px;
+    display: flex;
+    align-items: center;
+
+    color: #FFFCF2;
+}
