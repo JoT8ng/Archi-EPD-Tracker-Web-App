@@ -1,0 +1,25 @@
+.custom-lca {
+    fill: #FFFCF2;
+    width: 914px;
+    height: 939px;
+
+    position: absolute;
+    left: 500px;
+    top: -65px;
+    
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    /* identical to box height */
+    
+    color: #FFFCF2;
+
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    /* identical to box height */
+
+    color: #FFFCF2;
+}

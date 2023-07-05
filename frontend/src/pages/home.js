@@ -3,6 +3,7 @@ import './home.css';
 import ObjectivityIcon from '../components/ObjectivityIcon';
 import GreenProjectsIcon from '../components/greenprojects';
 import ResManufacturerIcon from '../components/resmanufacturer';
+import LCAIcon from '../components/lca';
 
 const Home = () => {
     return (
@@ -33,6 +34,39 @@ const Home = () => {
             </section>
             <section className='three'>
                 <h1>LCA- Life Cycle Assessment What are the life-cycle stages?</h1>
+                <p>LCA is a scientific methodology used to quantify the environmental impacts of the different life stages 
+                    of a process or product.<br />
+                    <br />
+                    A1 - Raw Material Supply<br />
+                    A2 - Transport<br />
+                    A3 - Manufacturing<br />
+                    A4 - Transport from the gate to the site<br />
+                    A5 - Assembly<br />
+                    B1 - Use<br />
+                    B2 - Maintenance<br />
+                    B3 - Repair<br />
+                    B4 - Replacement<br />
+                    B5 - Refurbishment<br />
+                    B6 - Operational Energy Use<br />
+                    B7 - Operational Water Use<br />
+                    C1 - Deconstruction Demolition<br />
+                    C2 - Transport<br />
+                    C3 - Waste Processing<br />
+                    C4 - Disposal<br />
+                    D - Reuse, Recover, Recycling Potential<br />
+                </p>
+                <LCAIcon />
+            </section>
+            <section className='four'>
+                <p>
+                Input EPD data and create <span style={{ color: '#D47416' }}>tables and graphs</span> to keep  
+                <span style={{ color: '#D47416' }}> track, compare, and visualize</span> the embodied carbon emissions 
+                of different construction materials.
+                <br />
+                <br />
+                Download the visualized data into <span style={{ color: '#D47416' }}>csv or pdf formats</span>. 
+                Integrate the data with <span style={{ color: '#D47416' }}>Revit</span>.
+                </p>
             </section>
         </div>
     );

@@ -192,3 +192,39 @@ section {
 
     color: #FFFCF2;
 }
+
+.three p {
+    position: absolute;
+    width: 800px;
+    height: 570px;
+    left: 380px;
+    top: 130px;
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+
+    color: #FFFCF2;
+}
+
+.four {
+    background-color: #FFFCF2;
+    position: relative;
+}
+
+.four p {
+    position: absolute;
+    width: 348px;
+    height: 470px;
+    left: 760px;
+    top: 150px;
+
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    text-align: right;
+
+    color: #203627;
+}
