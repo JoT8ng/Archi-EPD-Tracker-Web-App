@@ -4,6 +4,7 @@ import ObjectivityIcon from '../components/ObjectivityIcon';
 import GreenProjectsIcon from '../components/greenprojects';
 import ResManufacturerIcon from '../components/resmanufacturer';
 import LCAIcon from '../components/lca';
+import Lowbar from '../components/lowbar';
 
 const Home = () => {
     return (
@@ -67,6 +68,7 @@ const Home = () => {
                 Download the visualized data into <span style={{ color: '#D47416' }}>csv or pdf formats</span>. 
                 Integrate the data with <span style={{ color: '#D47416' }}>Revit</span>.
                 </p>
+                <Lowbar />
             </section>
         </div>
     );
