@@ -5,6 +5,7 @@ import GreenProjectsIcon from '../components/greenprojects';
 import ResManufacturerIcon from '../components/resmanufacturer';
 import LCAIcon from '../components/lca';
 import Lowbar from '../components/lowbar';
+import TopButton from '../components/topbutton';
 
 const Home = () => {
     return (
@@ -70,6 +71,7 @@ const Home = () => {
                 </p>
                 <Lowbar />
             </section>
+            <TopButton />
         </div>
     );
 }

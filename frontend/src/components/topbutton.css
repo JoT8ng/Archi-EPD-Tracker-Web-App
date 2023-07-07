@@ -1,0 +1,10 @@
+.custom-topbutton {
+    width: 37px;
+    height: 37px;
+}
+
+.topbutton {
+    position: fixed;
+    bottom: 150px;
+    right: 100px;
+}
