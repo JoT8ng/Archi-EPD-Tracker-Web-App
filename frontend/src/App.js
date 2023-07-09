@@ -4,6 +4,7 @@ import Home from './pages/home';
 import Tracker from './pages/tracker';
 import Contact from './pages/contact';
 import Navbar from './components/navbar';
+import Lowbar from './components/lowbar';
 import './App.css';
 
 function App() {
@@ -37,8 +38,7 @@ function App() {
         <Route path='/tracker' element={<Tracker />} />
         <Route path='/contact' element={<Contact />} />
       </Routes>
-      <div>
-        <header>
+      <Lowbar />
           <p>To retrieve backend test data:</p>
           <button onClick={getData}>Click Me</button>
           {testdata &&
@@ -47,8 +47,6 @@ function App() {
             <p>Data 2: {testdata.data_2}</p>
           </div>
           }
-        </header>
-      </div>
     </>
   );
 }

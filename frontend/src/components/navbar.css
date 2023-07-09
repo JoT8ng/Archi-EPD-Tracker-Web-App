@@ -1,5 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+}
+
 .logo {
     text-decoration: none;
     display: flex;
@@ -33,7 +46,7 @@
     height: 55px;
     top: 0px;
     background: #8FC0A9;
-    z-index: 10;
+    z-index: 999;
 }
 
 .nav-list {

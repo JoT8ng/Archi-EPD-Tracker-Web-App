@@ -1,5 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500;700&display=swap');
 
-body {
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#root {
+    height: 100%;
+}
+
+.App {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.body {
     background-color: #FFFCF2;
 }
