@@ -26,7 +26,9 @@ Python version 3.11
 
 All dependences needed for backend virtual environment saved in requirements.txt
 For windows:
+'py -m venv env'
 'pip install -r requirements.txt'
+'code .flaskenv'
 
 Getting Started:
 Temp text
