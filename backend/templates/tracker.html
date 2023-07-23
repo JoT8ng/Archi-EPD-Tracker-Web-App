@@ -5,10 +5,26 @@
     <title>Tracker page</title>
   </head>
   <body>
-    <h1>Data for tracker page here</h1>
-    <div id="root"></div>
-
-    <!-- Include the React application bundled file -->
-    <script src="{{ url_for('static', filename='bundle.js') }}"></script>
+    <h1>Welcome to the backend tracker page!</h1>
+    <table>
+      <thead>
+          <tr>
+              <th>ID</th>
+              <th>Session ID</th>
+              <th>Material Category</th>
+              <th>Product Name</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for data in session_data %}
+          <tr>
+              <td>{{ data.id }}</td>
+              <td>{{ data.session_id }}</td>
+              <td>{{ data.material_category }}</td>
+              <td>{{ data.product_name }}</td>
+          </tr>
+          {% endfor %}
+      </tbody>
+    </table>
   </body>
 </html>
