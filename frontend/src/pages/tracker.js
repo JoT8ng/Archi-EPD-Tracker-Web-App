@@ -1,12 +1,72 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import fetch from 'node-fetch';
 import './tracker.css';
 
 const Tracker = () => {
+
+    // Code to handle form submission and send data to backend Flask database
+    const handleSubmit = (event) => {
+        // Prevent default form submission behaviour
+        event.preventDefault();
+
+        // Get form data
+        const formData = new FormData(event.target);
+
+        // Convert data to JSON object
+        const data = {};
+        formData.forEach((value, key) => {
+            data[key] = value;
+        })
+
+        // Make POST request to backend Flask API
+        fetch('/tracker', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        })
+    }
+
+    // Function to send request to backend server to clear session data once web app or browser is closed
+    const clearSession = () => {
+        fetch('/clearsession', {
+            method: 'POST'
+        })
+        .then(response => {
+            console.log('Session data deleted successfully');
+        })
+        .catch(error => {
+            console.error('Error deleting session data:', error);
+        })
+    }
+
+    // useEffect to add 'beforeunload' event listener
+    useEffect(() => {
+        const handleBeforeUnload = () => {
+            clearSession();
+        }
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        // Clean event listener when component unmounts
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        }
+    }, [])
+
     return (
         <div>
             <h1>Input EPD Data</h1>
             <hr />
-            <form action='/tracker' method='post'>
+            <form action='/tracker' method='post' onSubmit={handleSubmit}>
                 <div class='input1'>
                     <h3>Material Category</h3>
                     <select id="material_category" name="material_category">
@@ -51,7 +111,7 @@ const Tracker = () => {
                         <option value="m2">m2</option>
                     </select>
                     <h3>Value 2</h3>
-                    <input id='value2' name='value2' type='number' placeholder='Number Value' min='1'></input>
+                    <input id='value2' name='value2' type='number' placeholder='Number Value'></input>
                     <h3>Unit 2</h3>
                     <select id="unit2" name="unit2">
                         <option value="kg">kg</option>
