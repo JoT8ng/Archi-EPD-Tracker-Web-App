@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, jsonify
 from app import app, db, TrackerData
 
 
@@ -13,6 +13,7 @@ def tracker():
     if request.method == "POST":
         material_category = request.form.get("material_category")
         product_name = request.form.get("product_name")
+        print(request.form)
 
         tracker_data = TrackerData(session['sid'], material_category=material_category, product_name=product_name)
         db.session.add(tracker_data)
@@ -21,7 +22,16 @@ def tracker():
     # Query the database to get the session data
     session_data = TrackerData.query.filter_by(session_id=session['sid']).all()
 
-    return render_template("tracker.html", session_data=session_data)
+    # Convert session_data to a list of dictionaries
+    result = []
+    for data in session_data:
+        result.append({
+            "id": data.id,
+            "material_category": data.material_category,
+            "product_name": data.product_name
+        })
+
+    return jsonify(result)
 
 @app.route("/clearsession", methods=["POST"])
 def clear_session():

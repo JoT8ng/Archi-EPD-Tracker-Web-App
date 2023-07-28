@@ -1,6 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import fetch from 'node-fetch';
 import './tracker.css';
+
+const TableTracker = ({data}) => {
+    return (
+        <tr>
+            <td>{data.material_category}</td>
+            <td>{data.product_name}</td>
+        </tr>
+    )
+}
 
 const Tracker = () => {
 
@@ -12,19 +21,10 @@ const Tracker = () => {
         // Get form data
         const formData = new FormData(event.target);
 
-        // Convert data to JSON object
-        const data = {};
-        formData.forEach((value, key) => {
-            data[key] = value;
-        })
-
         // Make POST request to backend Flask API
         fetch('/tracker', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
+            body: formData,
         })
         .then((response) => response.json())
         .then((data) => {
@@ -60,6 +60,16 @@ const Tracker = () => {
         return () => {
             window.removeEventListener('beforeunload', handleBeforeUnload);
         }
+    }, [])
+
+    // Fetch backend database data
+    const [tableData, setTableData] = useState([]);
+
+    useEffect(() => {
+        fetch('/tracker')
+        .then(response=>response.json())
+        .then(data => setTableData(data))
+        .catch(error => console.error('Error fetching data:', error));
     }, [])
 
     return (
@@ -159,13 +169,28 @@ const Tracker = () => {
                     <input id='b6' name='b6' type='number' placeholder='GWP' min='1'></input>
                 </div>
                 <div class='input16'>
-                    <button class='button' type='submit'>Insert</button>
+                    <button class='button' type='submit'>Add</button>
                 </div>
             </form>
 
             <hr />
 
             <h1>Data Table</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Material Category</th>
+                        <th>Product Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        {tableData.map((rowData) => (
+                            <TableTracker key={rowData.id} data={rowData} />
+                        ))}
+                    </tr>
+                </tbody>
+            </table>
 
             <hr />
 
