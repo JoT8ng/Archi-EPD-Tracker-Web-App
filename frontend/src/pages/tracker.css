@@ -5,3 +5,57 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+.page-container {
+    background-color: #fffcf2;
+}
+
+.table-container {
+    display: flex;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+table {
+    width: 1000px;
+    height: 500px;
+    display: flex;
+    border-collapse: collapse;
+    overflow: auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+    padding: 25px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #000000;
+    font-size: 12px;
+}
+
+th {
+    text-align: left;
+    font-size: 14px;
+}
+
+thead th {
+    background-color: #8FC0A9;
+}
+
+tbody tr:hover {
+    background-color: rgba(212, 163, 115, 0.2);
+}
+
+tbody td {
+    position: relative;
+}
+
+tbody td:hover:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -9999px;
+    background-color: rgba(212, 163, 115, 0.2);
+    z-index: -1;
+}

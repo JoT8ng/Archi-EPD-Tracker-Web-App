@@ -33,6 +33,13 @@ For windows:
 Getting Started:
 Temp text
 
+Initialize Flask SQLAlchemy Database:
+py
+from app import app, db, TrackerData
+with app.app_context():
+    db.create_all()
+exit()
+
 When launching:
 Launching backend and frontend
 'npm run start-all'

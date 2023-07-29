@@ -7,6 +7,23 @@ const TableTracker = ({data}) => {
         <tr>
             <td>{data.material_category}</td>
             <td>{data.product_name}</td>
+            <td>{data.material_name}</td>
+            <td>{data.manufacturer}</td>
+            <td>{data.declared_unit}</td>
+            <td>{data.value1}</td>
+            <td>{data.unit1}</td>
+            <td>{data.value2}</td>
+            <td>{data.unit2}</td>
+            <td>{data.mat_volume}</td>
+            <td>{data.a1to3}</td>
+            <td>{data.a4}</td>
+            <td>{data.a5}</td>
+            <td>{data.b1}</td>
+            <td>{data.b2}</td>
+            <td>{data.b3}</td>
+            <td>{data.b4}</td>
+            <td>{data.b5}</td>
+            <td>{data.b6}</td>
         </tr>
     )
 }
@@ -73,7 +90,7 @@ const Tracker = () => {
     }, [])
 
     return (
-        <div>
+        <div className='page-container'>
             <h1>Input EPD Data</h1>
             <hr />
             <form action='/tracker' method='post' onSubmit={handleSubmit}>
@@ -98,7 +115,7 @@ const Tracker = () => {
                 </div>
                 <div class='input2'>
                     <h3>Product Name</h3>
-                    <input id='product_name' name='product_name' type='text' placeholder='Name'></input>
+                    <input id='product_name' name='product_name' type='text' placeholder='Name' defaultValue="None"></input>
                     <h3>Material Name</h3>
                     <input id='material_name' name='material_name' type='text' placeholder='Name'></input>
                 </div>
@@ -176,21 +193,40 @@ const Tracker = () => {
             <hr />
 
             <h1>Data Table</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Material Category</th>
-                        <th>Product Name</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        {tableData.map((rowData) => (
-                            <TableTracker key={rowData.id} data={rowData} />
-                        ))}
-                    </tr>
-                </tbody>
-            </table>
+            <div className='table-container'>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Material Category</th>
+                            <th>Product Name</th>
+                            <th>Material Name</th>
+                            <th>Manufacturer</th>
+                            <th>EPD Declared Unit</th>
+                            <th>Value 1</th>
+                            <th>Unit 1</th>
+                            <th>Value 2</th>
+                            <th>Unit 2</th>
+                            <th>Volume of Material in Project &#40;m3&#41;</th>
+                            <th>A1-A3 &#40;GWP&#41; kg C02 -eq</th>
+                            <th>A4 &#40;GWP&#41; kg C02 -eq</th>
+                            <th>A5 &#40;GWP&#41; kg C02 -eq</th>
+                            <th>B1 &#40;GWP&#41; kg C02 -eq</th>
+                            <th>B2 &#40;GWP&#41; kg C02 -eq</th>
+                            <th>B3 &#40;GWP&#41; kg C02 -eq</th>
+                            <th>B4 &#40;GWP&#41; kg C02 -eq</th>
+                            <th>B5 &#40;GWP&#41; kg C02 -eq</th>
+                            <th>B6 &#40;GWP&#41; kg C02 -eq</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            {tableData.map((rowData) => (
+                                <TableTracker key={rowData.id} data={rowData} />
+                            ))}
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
             <hr />
 
