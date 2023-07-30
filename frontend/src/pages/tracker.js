@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import fetch from 'node-fetch';
 import './tracker.css';
+import Barchart from '../components/barchart';
 
 const TableTracker = ({data}) => {
     return (
@@ -231,6 +232,11 @@ const Tracker = () => {
             <hr />
 
             <h1>Create Graphs</h1>
+            <div className='overallchart-container'>
+                <div className='barchart-container'>
+                    <Barchart />
+                </div>
+            </div>
         </div>
     );
 }
