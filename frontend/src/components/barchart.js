@@ -1,12 +1,33 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import fetch from 'node-fetch';
-import { Chart } from 'chart.js/auto';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Legend } from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,    
+    Legend
+);
+
+export const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Compare GWP of Construction Stages',
+      },
+    },
+  };
 
 const Barchart = () => {
     // Fetch backend database data
     const [graphData, setGraphData] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState('');
-    const [chartInstance, setChartInstance] = useState(null);
 
     useEffect(() => {
         fetch('/tracker')
@@ -14,9 +35,6 @@ const Barchart = () => {
         .then(data => setGraphData(data))
         .catch(error => console.error('Error fetching data:', error));
     }, [])
-
-    // Add a reference to the chart canvas element
-    const chartRef = useRef(null);
 
     // Format the data for the bar chart based on product name selection
     const prepareChartData = () => {
@@ -50,74 +68,33 @@ const Barchart = () => {
             b5,
             b6,
         };
-    }
+    };
 
-    // Create and update the chart inside this useEffect hook
-    useEffect (() => {
-        if (!chartRef.current || !selectedProduct) return;
+    // Call prepare chart data function
+    const chartData = prepareChartData();
 
-        // Call prepare chart data function
-        const chartData = prepareChartData();
-
-        // Destroy existing chart if it exists
-        if (chartInstance) {
-            chartInstance.destroy();
-        }
-
-        const NewchartInstance = new Chart(chartRef.current, {
-            type: 'bar',
-            data: [
+    const newChartData = {
+        labels: ['A1 to A3', 'A4', 'A5', 'B1', 'B2', 'B3', 'B4', 'B5', 'B6'],
+            datasets: [
                 {
-                    label: 'A1 to A3',
-                    data: chartData.a1to3,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                label: 'GWP Data',
+                data: chartData
+                    ? [
+                        chartData.a1to3,
+                        chartData.a4,
+                        chartData.a5,
+                        chartData.b1,
+                        chartData.b2,
+                        chartData.b3,
+                        chartData.b4,
+                        chartData.b5,
+                        chartData.b6,
+                    ]
+                    : [],
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 },
-                {
-                    label: 'A4',
-                    data: chartData.a4,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                },
-                {
-                    label: 'A5',
-                    data: chartData.a5,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                },
-                {
-                    label: 'B1',
-                    data: chartData.b1,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                },
-                {
-                    label: 'B2',
-                    data: chartData.b2,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                },
-                {
-                    label: 'B3',
-                    data: chartData.b3,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                },
-                {
-                    label: 'B4',
-                    data: chartData.b4,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                },
-                {
-                    label: 'B5',
-                    data: chartData.b5,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                },
-                {
-                    label: 'B6',
-                    data: chartData.b6,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                }
-            ]
-        })
-
-        setChartInstance(NewchartInstance);
-
-    }, [graphData, selectedProduct]);
+            ],
+    };   
 
     // Handle product name selection
     const handleProductSelect = event => {
@@ -135,7 +112,7 @@ const Barchart = () => {
                 </option>
                 ))}
             </select>
-            <canvas id='barChart' ref={chartRef} className='barchart' width='800px' height='800px'/>
+            <Bar id='barChart' className='barchart' width='100vh' data={newChartData} options={options} />
         </div>
     );
 }
