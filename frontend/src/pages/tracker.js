@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import fetch from 'node-fetch';
 import './tracker.css';
 import Barchart from '../components/barchart';
+import Piechart from '../components/piechart';
 
 const TableTracker = ({data}) => {
     return (
@@ -235,6 +236,9 @@ const Tracker = () => {
             <div className='overallchart-container'>
                 <div className='barchart-container'>
                     <Barchart />
+                </div>
+                <div className='pichart-container'>
+                    <Piechart />
                 </div>
             </div>
         </div>

@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import fetch from 'node-fetch';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Legend, Tooltip } from 'chart.js';
-import { Bar } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, Title, Legend, Tooltip } from 'chart.js';
+import { Pie } from 'react-chartjs-2';
 
 ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    BarElement,
+    ArcElement,
     Title,    
     Legend,
     Tooltip
@@ -29,7 +27,7 @@ export const options = {
     },
   };
 
-const Barchart = () => {
+const Piechart = () => {
     // Fetch backend database data
     const [graphData, setGraphData] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState('');
@@ -96,7 +94,17 @@ const Barchart = () => {
                         chartData.b6,
                     ]
                     : [],
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(153, 150, 255, 0.2)',
+                    'rgba(255, 180, 64, 0.2)',
+                ],
                 },
             ],
     };   
@@ -107,7 +115,7 @@ const Barchart = () => {
     };
     
     return(
-        <div style={{ width: '80%', height: '700px', margin: 'auto' }}>
+        <div style={{ width: '80%', height: '500px', margin: 'auto' }}>
             <label>Select Product</label>
             <select onChange={handleProductSelect} value={selectedProduct}>
                 <option value="">Product Name</option>
@@ -117,9 +125,9 @@ const Barchart = () => {
                 </option>
                 ))}
             </select>
-            <Bar width={1500} height={700} data={newChartData} options={options} />
+            <Pie width={400} height={400} data={newChartData} options={options} />
         </div>
     );
 }
 
-export default Barchart;
+export default Piechart;
