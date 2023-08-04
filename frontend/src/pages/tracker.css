@@ -6,6 +6,12 @@
     box-sizing: border-box;
 }
 
+.refreshbutton {
+    position: absolute;
+    bottom: 50px;
+    right: 100px;
+}
+
 .page-container {
     background-color: #fffcf2;
 }

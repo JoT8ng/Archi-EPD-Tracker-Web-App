@@ -3,10 +3,12 @@ import fetch from 'node-fetch';
 import './tracker.css';
 import Barchart from '../components/barchart';
 import Piechart from '../components/piechart';
+import Barcharttwo from '../components/barchart2';
+import Piecharttwo from '../components/piechart2';
 
 const TableTracker = ({data}) => {
     return (
-        <tr>
+        <>
             <td>{data.material_category}</td>
             <td>{data.product_name}</td>
             <td>{data.material_name}</td>
@@ -26,7 +28,7 @@ const TableTracker = ({data}) => {
             <td>{data.b4}</td>
             <td>{data.b5}</td>
             <td>{data.b6}</td>
-        </tr>
+        </>
     )
 }
 
@@ -68,6 +70,7 @@ const Tracker = () => {
     }
 
     // useEffect to add 'beforeunload' event listener
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         const handleBeforeUnload = () => {
             clearSession();
@@ -87,7 +90,9 @@ const Tracker = () => {
     useEffect(() => {
         fetch('/tracker')
         .then(response=>response.json())
-        .then(data => setTableData(data))
+        .then(data => {
+            setTableData(data);
+        })
         .catch(error => console.error('Error fetching data:', error));
     }, [])
 
@@ -221,11 +226,11 @@ const Tracker = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            {tableData.map((rowData) => (
-                                <TableTracker key={rowData.id} data={rowData} />
-                            ))}
-                        </tr>
+                        {tableData.map((rowData) => (
+                            <tr key={rowData.id}>
+                                <TableTracker data={rowData} />
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
@@ -234,13 +239,26 @@ const Tracker = () => {
 
             <h1>Create Graphs</h1>
             <div className='overallchart-container'>
-                <div className='barchart-container'>
-                    <Barchart />
+                <div className='chartcontainer-one'>
+                    <h3>Compare GWP of Different Construction Stages</h3>
+                    <div className='barchart-container'>
+                        <Barchart />
+                    </div>
+                    <div className='pichart-container'>
+                        <Piechart />
+                    </div>
                 </div>
-                <div className='pichart-container'>
-                    <Piechart />
+                <div className='chartcontainer-two'>
+                    <h3>Compare GWP of Different Products</h3>
+                    <div className='barcharttwo-container'>
+                        <Barcharttwo />
+                    </div>
+                    <div className='piecharttwo-container'>
+                        <Piecharttwo />
+                    </div>
                 </div>
             </div>
+
         </div>
     );
 }
