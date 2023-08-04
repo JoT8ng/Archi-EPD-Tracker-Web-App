@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useTable } from 'react-table';
 import fetch from 'node-fetch';
 import './tracker.css';
 import Barchart from '../components/barchart';
@@ -6,31 +7,43 @@ import Piechart from '../components/piechart';
 import Barcharttwo from '../components/barchart2';
 import Piecharttwo from '../components/piechart2';
 
-const TableTracker = ({data}) => {
+
+// Create React Table
+const DataTable = ({ columns, data }) => {
+    const {
+      getTableProps,
+      getTableBodyProps,
+      headerGroups,
+      rows,
+      prepareRow,
+    } = useTable({ columns, data });
+  
     return (
-        <>
-            <td>{data.material_category}</td>
-            <td>{data.product_name}</td>
-            <td>{data.material_name}</td>
-            <td>{data.manufacturer}</td>
-            <td>{data.declared_unit}</td>
-            <td>{data.value1}</td>
-            <td>{data.unit1}</td>
-            <td>{data.value2}</td>
-            <td>{data.unit2}</td>
-            <td>{data.mat_volume}</td>
-            <td>{data.a1to3}</td>
-            <td>{data.a4}</td>
-            <td>{data.a5}</td>
-            <td>{data.b1}</td>
-            <td>{data.b2}</td>
-            <td>{data.b3}</td>
-            <td>{data.b4}</td>
-            <td>{data.b5}</td>
-            <td>{data.b6}</td>
-        </>
-    )
-}
+      <table {...getTableProps()} className='react-table'>
+        <thead>
+          {headerGroups.map(headerGroup => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map(column => (
+                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {rows.map(row => {
+            prepareRow(row);
+            return (
+              <tr {...row.getRowProps()}>
+                {row.cells.map(cell => {
+                  return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>;
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    );
+  };  
 
 const Tracker = () => {
 
@@ -96,12 +109,35 @@ const Tracker = () => {
         .catch(error => console.error('Error fetching data:', error));
     }, [])
 
+    // React Table Data
+    const columns = [
+        { Header: 'Material Category', accessor: 'material_category' },
+        { Header: 'Product Name', accessor: 'product_name' },
+        { Header: 'Material Name', accessor: 'material_name' },
+        { Header: 'Manufacturer', accessor: 'manufacturer' },
+        { Header: 'EPD Declared Unit', accessor: 'declared_unit' },
+        { Header: 'Value 1', accessor: 'value1' },
+        { Header: 'Unit 1', accessor: 'unit1' },
+        { Header: 'Value 2', accessor: 'value2' },
+        { Header: 'Unit 2', accessor: 'unit2' },
+        { Header: 'Volume of Material in Project (m3)', accessor: 'mat_volume' },
+        { Header: 'A1-A3 (GWP) kg C02 -eq', accessor: 'a1to3' },
+        { Header: 'A4 (GWP) kg C02 -eq', accessor: 'a4' },
+        { Header: 'A5 (GWP) kg C02 -eq', accessor: 'a5' },
+        { Header: 'B1 (GWP) kg C02 -eq', accessor: 'b1' },
+        { Header: 'B2 (GWP) kg C02 -eq', accessor: 'b2' },
+        { Header: 'B3 (GWP) kg C02 -eq', accessor: 'b3' },
+        { Header: 'B4 (GWP) kg C02 -eq', accessor: 'b4' },
+        { Header: 'B5 (GWP) kg C02 -eq', accessor: 'b5' },
+        { Header: 'B6 (GWP) kg C02 -eq', accessor: 'b6' },
+      ];
+
     return (
         <div className='page-container'>
             <h1>Input EPD Data</h1>
             <hr />
             <form action='/tracker' method='post' onSubmit={handleSubmit}>
-                <div class='input1'>
+                <div className='input1'>
                     <h3>Material Category</h3>
                     <select id="material_category" name="material_category">
                         <option value="Concrete">Concrete</option>
@@ -120,20 +156,20 @@ const Tracker = () => {
                         <option value="Other">Other</option>
                     </select>
                 </div>
-                <div class='input2'>
+                <div className='input2'>
                     <h3>Product Name</h3>
                     <input id='product_name' name='product_name' type='text' placeholder='Name' required></input>
                     <h3>Material Name</h3>
                     <input id='material_name' name='material_name' type='text' placeholder='Name' required></input>
                 </div>
-                <div class='input3'>
+                <div className='input3'>
                     <h3>Manufacturer</h3>
                     <input id='manufacturer' name='manufacturer' type='text' placeholder='Manufacturer' required></input>
                 </div>
-                <div class='input4'>
+                <div className='input4'>
                     <h1>Global Warming Potential &#40;GWP&#41; kg C02 -eq</h1>
                 </div>
-                <div class='input5'>
+                <div className='input5'>
                     <h3>EPD Declared Unit</h3>
                     <h3>Declared Unit</h3>
                     <input id='declared_unit' name='declared_unit' type='text' placeholder='eg. one ton of cold rolled stainless steel' required></input>
@@ -152,48 +188,48 @@ const Tracker = () => {
                         <option value="m2">m2</option>
                     </select>
                 </div>
-                <div class='input6'>
+                <div className='input6'>
                     <h3>Volume of Material in Project &#40;m3&#41;</h3>
                     <input id='mat_volume' name='mat_volume' type='number' placeholder='Volume' required></input>
                 </div>
-                <div class='input7'>
+                <div className='input7'>
                     <h3>A1-A3</h3>
                     <input id='a1to3' name='a1to3' type='number' placeholder='GWP' required></input>
                 </div>
-                <div class='input8'>
+                <div className='input8'>
                     <h3>A4</h3>
                     <input id='a4' name='a4' type='number' placeholder='GWP' required></input>
                 </div>
-                <div class='input9'>
+                <div className='input9'>
                     <h3>A5</h3>
                     <input id='a5' name='a5' type='number' placeholder='GWP' required></input>
                 </div>
-                <div class='input10'>
+                <div className='input10'>
                     <h3>B1</h3>
                     <input id='b1' name='b1' type='number' placeholder='GWP' required></input>
                 </div>
-                <div class='input11'>
+                <div className='input11'>
                     <h3>B2</h3>
                     <input id='b2' name='b2' type='number' placeholder='GWP' required></input>
                 </div>
-                <div class='input12'>
+                <div className='input12'>
                     <h3>B3</h3>
                     <input id='b3' name='b3' type='number' placeholder='GWP' required></input>
                 </div>
-                <div class='input13'>
+                <div className='input13'>
                     <h3>B4</h3>
                     <input id='b4' name='b4' type='number' placeholder='GWP' required></input>
                 </div>
-                <div class='input14'>
+                <div className='input14'>
                     <h3>B5</h3>
                     <input id='b5' name='b5' type='number' placeholder='GWP' required></input>
                 </div>
-                <div class='input15'>
+                <div className='input15'>
                     <h3>B6</h3>
                     <input id='b6' name='b6' type='number' placeholder='GWP' required></input>
                 </div>
-                <div class='input16'>
-                    <button class='button' type='submit'>Add</button>
+                <div className='input16'>
+                    <button className='button' type='submit'>Add</button>
                 </div>
             </form>
 
@@ -201,38 +237,7 @@ const Tracker = () => {
 
             <h1>Data Table</h1>
             <div className='table-container'>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Material Category</th>
-                            <th>Product Name</th>
-                            <th>Material Name</th>
-                            <th>Manufacturer</th>
-                            <th>EPD Declared Unit</th>
-                            <th>Value 1</th>
-                            <th>Unit 1</th>
-                            <th>Value 2</th>
-                            <th>Unit 2</th>
-                            <th>Volume of Material in Project &#40;m3&#41;</th>
-                            <th>A1-A3 &#40;GWP&#41; kg C02 -eq</th>
-                            <th>A4 &#40;GWP&#41; kg C02 -eq</th>
-                            <th>A5 &#40;GWP&#41; kg C02 -eq</th>
-                            <th>B1 &#40;GWP&#41; kg C02 -eq</th>
-                            <th>B2 &#40;GWP&#41; kg C02 -eq</th>
-                            <th>B3 &#40;GWP&#41; kg C02 -eq</th>
-                            <th>B4 &#40;GWP&#41; kg C02 -eq</th>
-                            <th>B5 &#40;GWP&#41; kg C02 -eq</th>
-                            <th>B6 &#40;GWP&#41; kg C02 -eq</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {tableData.map((rowData) => (
-                            <tr key={rowData.id}>
-                                <TableTracker data={rowData} />
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+                <DataTable columns={columns} data={tableData} className="react-table"/>
             </div>
 
             <hr />
