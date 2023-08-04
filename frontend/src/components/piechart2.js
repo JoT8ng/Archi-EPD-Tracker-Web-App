@@ -32,6 +32,14 @@ const Piecharttwo = () => {
     const [graphData, setGraphData] = useState([]);
     const [selectedStage, setSelectedStage] = useState('');
 
+    // Generate random colors function
+    const dynamicColors = () => {
+        const r = Math.floor(Math.random() * 255);
+        const g = Math.floor(Math.random() * 255);
+        const b = Math.floor(Math.random() * 255);
+        return `rgba(${r}, ${g}, ${b}, 0.6)`;
+    };
+
     // List of specific keys to be shown as options
     const specificKeys = ['a1to3', 'a4', 'a5', 'b1', 'b2', 'b3', 'b4', 'b5', 'b6'];
 
@@ -57,7 +65,11 @@ const Piecharttwo = () => {
         const filteredData = graphData.filter(item => item[selectedStage]);
 
         // Extract values for the selected construction stage
-        const chartData = filteredData.map(item => item[selectedStage]);
+        const chartData = filteredData.map(item => ({
+            label: item.product_name,
+            value: item[selectedStage],
+            backgroundColor: dynamicColors(),
+        }));
 
         return chartData;
     };
@@ -66,12 +78,12 @@ const Piecharttwo = () => {
     const newchartData = prepareChartData();
 
     const newChartData = {
-        labels: graphData.map(item => item.product_name),
+        labels: newchartData ? newchartData.map(item => item.label) : [],
             datasets: [
                 {
                 label: `GWP Data for ${selectedStage}`,
-                data: newchartData || [],
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                data: newchartData ? newchartData.map(item => item.value) : [],
+                backgroundColor: newchartData ? newchartData.map(item => item.backgroundColor) : [],
                 },
             ],
     };   
