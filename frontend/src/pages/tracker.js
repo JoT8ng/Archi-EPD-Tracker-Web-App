@@ -65,6 +65,7 @@ const Tracker = () => {
             console.log(data);
             // Fetch updated backend data
             fetchBackendData();
+            fetchGraphData();
             // Clear form inputs after successful data submission to backend
             event.target.reset();
         })
@@ -103,12 +104,22 @@ const Tracker = () => {
 
     // Fetch backend database data function
     const [tableData, setTableData] = useState([]);
+    const [graphData, setGraphData] = useState([]);
 
     const fetchBackendData = () => {
         fetch('/tracker')
         .then(response=>response.json())
         .then(data => {
             setTableData(data);
+        })
+        .catch(error => console.error('Error fetching data:', error));
+    }
+
+    const fetchGraphData = () => {
+        fetch('/tracker')
+        .then(response=>response.json())
+        .then(data => {
+            setGraphData(data);
         })
         .catch(error => console.error('Error fetching data:', error));
     }
@@ -256,19 +267,19 @@ const Tracker = () => {
                 <div className='chartcontainer-one'>
                     <h3>Compare GWP of Different Construction Stages</h3>
                     <div className='barchart-container'>
-                        <Barchart />
+                        <Barchart graphData={graphData} fetchGraphData={fetchGraphData} />
                     </div>
                     <div className='pichart-container'>
-                        <Piechart />
+                        <Piechart graphData={graphData} fetchGraphData={fetchGraphData} />
                     </div>
                 </div>
                 <div className='chartcontainer-two'>
                     <h3>Compare GWP of Different Products</h3>
                     <div className='barcharttwo-container'>
-                        <Barcharttwo />
+                        <Barcharttwo graphData={graphData} fetchGraphData={fetchGraphData} />
                     </div>
                     <div className='piecharttwo-container'>
-                        <Piecharttwo />
+                        <Piecharttwo graphData={graphData} fetchGraphData={fetchGraphData} />
                     </div>
                 </div>
             </div>

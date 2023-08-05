@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import fetch from 'node-fetch';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Legend, Tooltip } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 
@@ -29,9 +28,8 @@ export const options = {
     },
   };
 
-const Barcharttwo = () => {
+const Barcharttwo = ({ graphData, fetchGraphData }) => {
     // Fetch backend database data
-    const [graphData, setGraphData] = useState([]);
     const [selectedStage, setSelectedStage] = useState('');
 
     // Generate random colors function
@@ -52,11 +50,10 @@ const Barcharttwo = () => {
     const filteredKeys = columnKeys.filter(key => specificKeys.includes(key));
 
     useEffect(() => {
-        fetch('/tracker')
-        .then(response=>response.json())
-        .then(data => setGraphData(data))
-        .catch(error => console.error('Error fetching data:', error));
-    }, [])
+        if (!graphData || graphData.length === 0) {
+            fetchGraphData();
+        }
+    }, [graphData, fetchGraphData])
 
     // Format the data for the bar chart based on product name selection
     const prepareChartData = () => {
