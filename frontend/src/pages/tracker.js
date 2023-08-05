@@ -63,6 +63,10 @@ const Tracker = () => {
         .then((response) => response.json())
         .then((data) => {
             console.log(data);
+            // Fetch updated backend data
+            fetchBackendData();
+            // Clear form inputs after successful data submission to backend
+            event.target.reset();
         })
         .catch((error) => {
             console.error('Error:', error);
@@ -97,16 +101,21 @@ const Tracker = () => {
         }
     }, [])
 
-    // Fetch backend database data
+    // Fetch backend database data function
     const [tableData, setTableData] = useState([]);
 
-    useEffect(() => {
+    const fetchBackendData = () => {
         fetch('/tracker')
         .then(response=>response.json())
         .then(data => {
             setTableData(data);
         })
         .catch(error => console.error('Error fetching data:', error));
+    }
+
+    // When first loading page fetch backend data
+    useEffect(() => {
+        fetchBackendData();
     }, [])
 
     // React Table Data
