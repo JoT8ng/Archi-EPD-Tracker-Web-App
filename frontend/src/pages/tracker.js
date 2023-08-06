@@ -154,113 +154,120 @@ const Tracker = () => {
 
     return (
         <div className='page-container'>
-            <h1>Input EPD Data</h1>
-            <hr />
-            <form action='/tracker' method='post' onSubmit={handleSubmit}>
-                <div className='input1'>
-                    <h3>Material Category</h3>
-                    <select id="material_category" name="material_category">
-                        <option value="Concrete">Concrete</option>
-                        <option value="Wood">Wood</option>
-                        <option value="Brick">Brick</option>
-                        <option value="Glass">Glass</option>
-                        <option value="Steel">Steel</option>
-                        <option value="Aluminum">Aluminum</option>
-                        <option value="Other_Metals">Other Metals</option>
-                        <option value="Stone">Stone</option>
-                        <option value="Ceramics">Ceramics</option>
-                        <option value="Plaster">Plaster</option>
-                        <option value="Fabric">Fabric</option>
-                        <option value="Insulation">Insulation</option>
-                        <option value="Waterproofing">Waterproofing</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-                <div className='input2'>
-                    <h3>Product Name</h3>
-                    <input id='product_name' name='product_name' type='text' placeholder='Name' required></input>
-                    <h3>Material Name</h3>
-                    <input id='material_name' name='material_name' type='text' placeholder='Name' required></input>
-                </div>
-                <div className='input3'>
-                    <h3>Manufacturer</h3>
-                    <input id='manufacturer' name='manufacturer' type='text' placeholder='Manufacturer' required></input>
-                </div>
-                <div className='input4'>
-                    <h1>Global Warming Potential &#40;GWP&#41; kg C02 -eq</h1>
-                </div>
-                <div className='input5'>
-                    <h3>EPD Declared Unit</h3>
-                    <h3>Declared Unit</h3>
-                    <input id='declared_unit' name='declared_unit' type='text' placeholder='eg. one ton of cold rolled stainless steel' required></input>
-                    <h3>Value 1</h3>
-                    <input id='value1' name='value1' type='number' placeholder='Number Value' required></input>
-                    <h3>Unit 1</h3>
-                    <select id="unit1" name="unit1">
-                        <option value="kg">kg</option>
-                        <option value="m2">m2</option>
-                    </select>
-                    <h3>Value 2</h3>
-                    <input id='value2' name='value2' type='number' placeholder='Number Value' required></input>
-                    <h3>Unit 2</h3>
-                    <select id="unit2" name="unit2">
-                        <option value="kg">kg</option>
-                        <option value="m2">m2</option>
-                    </select>
-                </div>
-                <div className='input6'>
-                    <h3>Volume of Material in Project &#40;m3&#41;</h3>
-                    <input id='mat_volume' name='mat_volume' type='number' placeholder='Volume' required></input>
-                </div>
-                <div className='input7'>
-                    <h3>A1-A3</h3>
-                    <input id='a1to3' name='a1to3' type='number' placeholder='GWP' required></input>
-                </div>
-                <div className='input8'>
-                    <h3>A4</h3>
-                    <input id='a4' name='a4' type='number' placeholder='GWP' required></input>
-                </div>
-                <div className='input9'>
-                    <h3>A5</h3>
-                    <input id='a5' name='a5' type='number' placeholder='GWP' required></input>
-                </div>
-                <div className='input10'>
-                    <h3>B1</h3>
-                    <input id='b1' name='b1' type='number' placeholder='GWP' required></input>
-                </div>
-                <div className='input11'>
-                    <h3>B2</h3>
-                    <input id='b2' name='b2' type='number' placeholder='GWP' required></input>
-                </div>
-                <div className='input12'>
-                    <h3>B3</h3>
-                    <input id='b3' name='b3' type='number' placeholder='GWP' required></input>
-                </div>
-                <div className='input13'>
-                    <h3>B4</h3>
-                    <input id='b4' name='b4' type='number' placeholder='GWP' required></input>
-                </div>
-                <div className='input14'>
-                    <h3>B5</h3>
-                    <input id='b5' name='b5' type='number' placeholder='GWP' required></input>
-                </div>
-                <div className='input15'>
-                    <h3>B6</h3>
-                    <input id='b6' name='b6' type='number' placeholder='GWP' required></input>
-                </div>
-                <div className='input16'>
-                    <button className='button' type='submit'>Add</button>
-                </div>
-            </form>
-
-            <hr />
+            <div className='form-container'>
+                <form className='form' action='/tracker' method='post' onSubmit={handleSubmit}>
+                    <h1>Input EPD Data</h1>
+                    <div className='input1'>
+                        <div className='input-container'>
+                            <label>Material Category</label>
+                            <select id="material_category" name="material_category">
+                                <option value="Concrete">Concrete</option>
+                                <option value="Wood">Wood</option>
+                                <option value="Brick">Brick</option>
+                                <option value="Glass">Glass</option>
+                                <option value="Steel">Steel</option>
+                                <option value="Aluminum">Aluminum</option>
+                                <option value="Other_Metals">Other Metals</option>
+                                <option value="Stone">Stone</option>
+                                <option value="Ceramics">Ceramics</option>
+                                <option value="Plaster">Plaster</option>
+                                <option value="Fabric">Fabric</option>
+                                <option value="Insulation">Insulation</option>
+                                <option value="Waterproofing">Waterproofing</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <label>Product Name</label>
+                            <input id='product_name' name='product_name' type='text' placeholder='Name' required></input>
+                            <label>Material Name</label>
+                            <input id='material_name' name='material_name' type='text' placeholder='Name' required></input>
+                            <label>Manufacturer</label>
+                            <input id='manufacturer' name='manufacturer' type='text' placeholder='Manufacturer' required></input>
+                        </div>
+                    </div>
+                    <div className='input2'>
+                        <h1>Global Warming Potential &#40;GWP&#41; kg C02 -eq</h1>
+                        <h3>EPD Declared Unit</h3>
+                        <div className='input-container'>
+                            <label>Declared Unit</label>
+                            <input id='declared_unit' name='declared_unit' type='text' placeholder='eg. one ton of cold rolled stainless steel' required></input>
+                        </div>
+                        <div className='input-grid'>
+                            <div className='input-group2'>
+                                <label>Value 1</label>
+                                <input id='value1' name='value1' type='number' placeholder='Number Value' required></input>
+                            </div>
+                            <div className='input-group2'>
+                                <label>Unit 1</label>
+                                <select id="unit1" name="unit1">
+                                    <option value="kg">kg</option>
+                                    <option value="m2">m2</option>
+                                </select>
+                            </div>
+                            <div className='input-group2'>
+                                <label>Value 2</label>
+                                <input id='value2' name='value2' type='number' placeholder='Number Value' required></input>
+                            </div>
+                            <div className='input-group2'>
+                                <label>Unit 2</label>
+                                <select id="unit2" name="unit2">
+                                    <option value="kg">kg</option>
+                                    <option value="m2">m2</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className='input-container'>
+                            <label>Volume of Material in Project &#40;m3&#41;</label>
+                            <input id='mat_volume' name='mat_volume' type='number' placeholder='Volume' required></input>
+                        </div>
+                    </div>
+                        <div className='input-grid'>
+                            <div className='input-group'>
+                                <label>A1-A3</label>
+                                <input id='a1to3' name='a1to3' type='number' placeholder='GWP' required></input>
+                            </div>
+                            <div className='input-group'>
+                                <label>A4</label>
+                                <input id='a4' name='a4' type='number' placeholder='GWP' required></input>
+                            </div>
+                            <div className='input-group'>
+                                <label>A5</label>
+                                <input id='a5' name='a5' type='number' placeholder='GWP' required></input>
+                            </div>
+                            <div className='input-group'>
+                                <label>B1</label>
+                                <input id='b1' name='b1' type='number' placeholder='GWP' required></input>
+                            </div>
+                            <div className='input-group'>
+                                <label>B2</label>
+                                <input id='b2' name='b2' type='number' placeholder='GWP' required></input>
+                            </div>
+                            <div className='input-group'>
+                                <label>B3</label>
+                                <input id='b3' name='b3' type='number' placeholder='GWP' required></input>
+                            </div>
+                            <div className='input-group'>
+                                <label>B4</label>
+                                <input id='b4' name='b4' type='number' placeholder='GWP' required></input>
+                            </div>
+                            <div className='input-group'>
+                                <label>B5</label>
+                                <input id='b5' name='b5' type='number' placeholder='GWP' required></input>
+                            </div>
+                            <div className='input-group'>
+                                <label>B6</label>
+                                <input id='b6' name='b6' type='number' placeholder='GWP' required></input>
+                            </div>
+                        </div>
+                    <div className='input3'>
+                        <button className='button' type='submit'>Add</button>
+                    </div>
+                </form>
+            </div>
 
             <h1>Data Table</h1>
             <div className='table-container'>
                 <DataTable columns={columns} data={tableData} className="react-table"/>
             </div>
-
-            <hr />
 
             <h1>Create Graphs</h1>
             <div className='overallchart-container'>

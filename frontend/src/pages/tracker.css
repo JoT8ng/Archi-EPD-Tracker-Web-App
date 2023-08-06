@@ -7,14 +7,117 @@
 }
 
 .page-container {
-    background-color: #fffcf2;
+    background-color: #ffffff;
     position: relative;
+}
+
+.form-container {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+    width: 100%;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    background: rgb(240,243,202);
+    background: -moz-linear-gradient(0deg, rgba(240,243,202,1) 0%, rgba(175,232,231,1) 100%);
+    background: -webkit-linear-gradient(0deg, rgba(240,243,202,1) 0%, rgba(175,232,231,1) 100%);
+    background: linear-gradient(0deg, rgba(240,243,202,1) 0%, rgba(175,232,231,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f0f3ca",endColorstr="#afe8e7",GradientType=1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.form {
+    width: 80%;
+    margin: auto;
+    justify-content: center;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    /* This will make each input-group take 33% of the available width with some gap in between */
+    flex: 0 1 calc(33% - 20px);
+}
+
+.input-group2 {
+    display: flex;
+    flex-direction: column;
+    /* This will make each input-group take 33% of the available width with some gap in between */
+    flex: 0 1 calc(50% - 20px);
+}
+
+.input-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    flex: column;
+    gap: 20px;
+}
+
+label {
+    font-size: 16px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+input {
+    border: none;
+    outline: none;
+    background-color: #e7e7e7;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+}
+  
+  input:focus {
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+}
+
+select {
+    border: none;
+    outline: none;
+    background-color: #e7e7e7;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
 }
 
 .barchart-container {
     display: flex;
     justify-content: center;
     z-index: 999;
+}
+
+.input3 {
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
+}
+
+button {
+    border: none;
+    outline: none;
+    background: rgb(207,217,144);
+    background: -moz-linear-gradient(0deg, rgba(207,217,144,1) 0%, rgba(110,195,191,1) 100%);
+    background: -webkit-linear-gradient(0deg, rgba(207,217,144,1) 0%, rgba(110,195,191,1) 100%);
+    background: linear-gradient(0deg, rgba(207,217,144,1) 0%, rgba(110,195,191,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#cfd990",endColorstr="#6ec3bf",GradientType=1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #000000;
 }
 
 .table-container {
@@ -24,6 +127,7 @@
     width: 80%;
     height: 600px;
     margin: auto;
+    padding: 100px;
     border-radius: 15px;
     border-collapse: collapse;
     overflow: auto;
@@ -33,6 +137,10 @@
         display: none;
     }
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.react-table tr:nth-child(even) {
+    background-color: #D3F1E7;
 }
 
 th,
@@ -58,11 +166,11 @@ th {
 }
 
 thead th {
-    background-color: #8FC0A9;
+    background-color: #749898;
 }
 
 tbody tr:hover {
-    background-color: rgba(212, 163, 115, 0.2);
+    background-color: rgba(212, 163, 115, 0.4);
 }
 
 tbody td:hover:before {
@@ -71,6 +179,6 @@ tbody td:hover:before {
     left: 0;
     right: 0;
     top: -9999px;
-    background-color: rgba(212, 163, 115, 0.2);
+    background-color: rgba(212, 163, 115, 0.4);
     z-index: -1;
 }
