@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Legend, Tooltip } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import '../pages/tracker.css';
 
 ChartJS.register(
     CategoryScale,
@@ -28,15 +29,17 @@ export const options = {
     },
   };
 
-const Barchart = ({ graphData, fetchGraphData }) => {
+const Barchart = () => {
     // Fetch backend database data
+    const [graphData, setGraphData] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState('');
 
     useEffect(() => {
-        if (!graphData || graphData.length === 0) {
-            fetchGraphData();
-        }
-    }, [graphData, fetchGraphData])
+        fetch('/tracker')
+        .then(response=>response.json())
+        .then(data => setGraphData(data))
+        .catch(error => console.error('Error fetching data:', error));
+    }, [])
 
     // Format the data for the bar chart based on product name selection
     const prepareChartData = () => {
@@ -114,16 +117,18 @@ const Barchart = ({ graphData, fetchGraphData }) => {
     };
     
     return(
-        <div style={{ width: '80%', height: '700px', margin: 'auto' }}>
-            <label>Select Product</label>
-            <select onChange={handleProductSelect} value={selectedProduct}>
-                <option value="">Product Name</option>
-                {Array.from(new Set(graphData.map(item => item.product_name))).map((product, index) => (
-                <option key={index} value={product}>
-                    {product}
-                </option>
-                ))}
-            </select>
+        <div style={{ width: '80%', margin: 'auto' }}>
+            <div className='input-container'>
+                <label>Select Product</label>
+                <select onChange={handleProductSelect} value={selectedProduct}>
+                    <option value="">Product Name</option>
+                    {Array.from(new Set(graphData.map(item => item.product_name))).map((product, index) => (
+                    <option key={index} value={product}>
+                        {product}
+                    </option>
+                    ))}
+                </select>
+            </div>
             <Bar width={1500} height={700} data={newChartData} options={options} />
         </div>
     );

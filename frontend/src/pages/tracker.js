@@ -65,7 +65,6 @@ const Tracker = () => {
             console.log(data);
             // Fetch updated backend data
             fetchBackendData();
-            fetchGraphData();
             // Clear form inputs after successful data submission to backend
             event.target.reset();
         })
@@ -104,22 +103,12 @@ const Tracker = () => {
 
     // Fetch backend database data function
     const [tableData, setTableData] = useState([]);
-    const [graphData, setGraphData] = useState([]);
 
     const fetchBackendData = () => {
         fetch('/tracker')
         .then(response=>response.json())
         .then(data => {
             setTableData(data);
-        })
-        .catch(error => console.error('Error fetching data:', error));
-    }
-
-    const fetchGraphData = () => {
-        fetch('/tracker')
-        .then(response=>response.json())
-        .then(data => {
-            setGraphData(data);
         })
         .catch(error => console.error('Error fetching data:', error));
     }
@@ -264,29 +253,33 @@ const Tracker = () => {
                 </form>
             </div>
 
-            <h1>Data Table</h1>
-            <div className='table-container'>
-                <DataTable columns={columns} data={tableData} className="react-table"/>
+            <div className='gradient-transition'>
+                <div className='table-section'>
+                    <h1>Data Table</h1>
+                    <div className='table-container'>
+                        <DataTable columns={columns} data={tableData} className="react-table"/>
+                    </div>
+                </div>
             </div>
 
-            <h1>Create Graphs</h1>
             <div className='overallchart-container'>
+                <h1>Create Graphs</h1>
                 <div className='chartcontainer-one'>
                     <h3>Compare GWP of Different Construction Stages</h3>
                     <div className='barchart-container'>
-                        <Barchart graphData={graphData} fetchGraphData={fetchGraphData} />
+                        <Barchart />
                     </div>
                     <div className='pichart-container'>
-                        <Piechart graphData={graphData} fetchGraphData={fetchGraphData} />
+                        <Piechart />
                     </div>
                 </div>
                 <div className='chartcontainer-two'>
                     <h3>Compare GWP of Different Products</h3>
                     <div className='barcharttwo-container'>
-                        <Barcharttwo graphData={graphData} fetchGraphData={fetchGraphData} />
+                        <Barcharttwo />
                     </div>
                     <div className='piecharttwo-container'>
-                        <Piecharttwo graphData={graphData} fetchGraphData={fetchGraphData} />
+                        <Piecharttwo />
                     </div>
                 </div>
             </div>

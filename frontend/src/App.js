@@ -7,6 +7,7 @@ import Navbar from './components/navbar';
 import Lowbar from './components/lowbar';
 import './App.css';
 
+
 function App() {
 
   return (

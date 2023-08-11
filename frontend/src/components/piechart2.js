@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Chart as ChartJS, ArcElement, Title, Legend, Tooltip } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
+import '../pages/tracker.css';
 
 ChartJS.register(
     ArcElement,
@@ -26,8 +27,9 @@ export const options = {
     },
   };
 
-const Piecharttwo = ({ graphData, fetchGraphData }) => {
+const Piecharttwo = () => {
     // Fetch backend database data
+    const [graphData, setGraphData] = useState([]);
     const [selectedStage, setSelectedStage] = useState('');
 
     // Generate random colors function
@@ -48,10 +50,11 @@ const Piecharttwo = ({ graphData, fetchGraphData }) => {
     const filteredKeys = columnKeys.filter(key => specificKeys.includes(key));
 
     useEffect(() => {
-        if (!graphData || graphData.length === 0) {
-            fetchGraphData();
-        }
-    }, [graphData, fetchGraphData])
+        fetch('/tracker')
+        .then(response=>response.json())
+        .then(data => setGraphData(data))
+        .catch(error => console.error('Error fetching data:', error));
+    }, [])
 
     // Format the data for the bar chart based on product name selection
     const prepareChartData = () => {
@@ -91,14 +94,16 @@ const Piecharttwo = ({ graphData, fetchGraphData }) => {
     };
     
     return(
-        <div style={{ width: '80%', height: '500px', margin: 'auto' }}>
-            <label>Select Construction Stage</label>
-            <select onChange={handleStageSelect} value={selectedStage}>
-                <option value="">Construction Stage</option>
-                {filteredKeys.map(key => (
-                    <option key={key} value={key}>{key}</option>
-                ))}
-            </select>
+        <div style={{ width: '50%', margin: 'auto' }}>
+            <div className='input-container'>
+                <label>Select Construction Stage</label>
+                <select onChange={handleStageSelect} value={selectedStage}>
+                    <option value="">Construction Stage</option>
+                    {filteredKeys.map(key => (
+                        <option key={key} value={key}>{key}</option>
+                    ))}
+                </select>
+            </div>
             <Pie width={400} height={400} data={newChartData} options={options} />
         </div>
     );

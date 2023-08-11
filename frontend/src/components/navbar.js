@@ -1,22 +1,22 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './navbar.css';
 
 const Navbar = () => {
     return(
         <nav className='navbar'>
-            <Link to='/' className='logo'>
-                <span className='logo-text'>the Archi EPD Tracker</span>
-            </Link>
+            <NavLink exact to='/' className='logo'>
+                <span className='logo-text'>EPData.</span>
+            </NavLink>
             <ul className='nav-list'>
                 <li>
-                    <Link to='/' className='nav-text'>Home</Link>
+                    <NavLink to='/' className='nav-text' activeClassName='active'>Home</NavLink>
                 </li>
                 <li>
-                    <Link to='/tracker' className='nav-text'>Tracker</Link>
+                    <NavLink to='/tracker' className='nav-text' activeClassName='active'>Tracker</NavLink>
                 </li>
                 <li>
-                    <Link to='/contact' className='nav-text'>Contact</Link>
+                    <NavLink to='/contact' className='nav-text' activeClassName='active'>Contact</NavLink>
                 </li>
             </ul>
         </nav>

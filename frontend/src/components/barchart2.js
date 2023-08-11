@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Legend, Tooltip } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import '../pages/tracker.css';
 
 ChartJS.register(
     CategoryScale,
@@ -28,8 +29,9 @@ export const options = {
     },
   };
 
-const Barcharttwo = ({ graphData, fetchGraphData }) => {
+const Barcharttwo = () => {
     // Fetch backend database data
+    const [graphData, setGraphData] = useState([]);
     const [selectedStage, setSelectedStage] = useState('');
 
     // Generate random colors function
@@ -50,10 +52,11 @@ const Barcharttwo = ({ graphData, fetchGraphData }) => {
     const filteredKeys = columnKeys.filter(key => specificKeys.includes(key));
 
     useEffect(() => {
-        if (!graphData || graphData.length === 0) {
-            fetchGraphData();
-        }
-    }, [graphData, fetchGraphData])
+        fetch('/tracker')
+        .then(response=>response.json())
+        .then(data => setGraphData(data))
+        .catch(error => console.error('Error fetching data:', error));
+    }, [])
 
     // Format the data for the bar chart based on product name selection
     const prepareChartData = () => {
@@ -93,14 +96,16 @@ const Barcharttwo = ({ graphData, fetchGraphData }) => {
     };
     
     return(
-        <div style={{ width: '80%', height: '700px', margin: 'auto' }}>
-            <label>Select Construction Stage</label>
-            <select onChange={handleStageSelect} value={selectedStage}>
-                <option value="">Construction Stage</option>
-                {filteredKeys.map(key => (
-                    <option key={key} value={key}>{key}</option>
-                ))}
-            </select>
+        <div style={{ width: '80%', margin: 'auto' }}>
+            <div className='input-container'>
+                <label>Select Construction Stage</label>
+                <select onChange={handleStageSelect} value={selectedStage}>
+                    <option value="">Construction Stage</option>
+                    {filteredKeys.map(key => (
+                        <option key={key} value={key}>{key}</option>
+                    ))}
+                </select>
+            </div>
             <Bar width={1500} height={700} data={newChartData} options={options} />
         </div>
     );

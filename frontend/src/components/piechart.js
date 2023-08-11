@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Chart as ChartJS, ArcElement, Title, Legend, Tooltip } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
+import '../pages/tracker.css';
 
 ChartJS.register(
     ArcElement,
@@ -26,15 +27,17 @@ export const options = {
     },
   };
 
-const Piechart = ({ graphData, fetchGraphData }) => {
+const Piechart = () => {
     // Fetch backend database data
+    const [graphData, setGraphData] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState('');
 
     useEffect(() => {
-        if (!graphData || graphData.length === 0) {
-            fetchGraphData();
-        }
-    }, [graphData, fetchGraphData])
+        fetch('/tracker')
+        .then(response=>response.json())
+        .then(data => setGraphData(data))
+        .catch(error => console.error('Error fetching data:', error));
+    }, [])
 
     // Format the data for the bar chart based on product name selection
     const prepareChartData = () => {
@@ -112,16 +115,18 @@ const Piechart = ({ graphData, fetchGraphData }) => {
     };
     
     return(
-        <div style={{ width: '80%', height: '500px', margin: 'auto' }}>
-            <label>Select Product</label>
-            <select onChange={handleProductSelect} value={selectedProduct}>
-                <option value="">Product Name</option>
-                {Array.from(new Set(graphData.map(item => item.product_name))).map((product, index) => (
-                <option key={index} value={product}>
-                    {product}
-                </option>
-                ))}
-            </select>
+        <div style={{ width: '50%', margin: 'auto' }}>
+            <div className='input-container'>
+                <label>Select Product</label>
+                <select onChange={handleProductSelect} value={selectedProduct}>
+                    <option value="">Product Name</option>
+                    {Array.from(new Set(graphData.map(item => item.product_name))).map((product, index) => (
+                    <option key={index} value={product}>
+                        {product}
+                    </option>
+                    ))}
+                </select>
+            </div>
             <Pie width={400} height={400} data={newChartData} options={options} />
         </div>
     );
