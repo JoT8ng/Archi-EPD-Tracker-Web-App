@@ -113,9 +113,20 @@ const Piechart = () => {
     const handleProductSelect = event => {
         setSelectedProduct(event.target.value);
     };
+
+    // Handle Update
+    const handleUpdate = async event => {
+        fetch('/tracker')
+        .then(response=>response.json())
+        .then(data => setGraphData(data))
+        .catch(error => console.error('Error fetching data:', error));
+    };
     
     return(
         <div style={{ width: '50%', margin: 'auto' }}>
+            <div className='input3'>
+                <button className='button' onClick={handleUpdate}>Refresh Chart</button>
+            </div>
             <div className='input-container'>
                 <label>Select Product</label>
                 <select onChange={handleProductSelect} value={selectedProduct}>
