@@ -1,9 +1,16 @@
 import React from 'react';
+import { BsGithub, BsLinkedin } from "react-icons/bs";
 
 const Contact = () => {
     return (
         <div>
-            <h1>Welcome to the contact page!</h1>
+            <p>Contact</p>
+            <p>
+                This web app is an ongoing  project by Jocelyn Tang. Feel free to give feedback by contacting me 
+                on LinkedIn or filling out an issue on Github.
+            </p>
+                <BsGithub />
+            <BsLinkedin />
         </div>
     );
 }

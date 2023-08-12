@@ -6,8 +6,9 @@
     box-sizing: border-box;
 }
 
-h1 {
+.tracker-title {
     padding-bottom: 25px;
+    color: #000000;
 }
 
 h3 {

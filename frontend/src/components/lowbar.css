@@ -15,12 +15,70 @@ html {
 
 .lowbar {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     width: 100%;
-    height: 55px;
-    bottom: 0;
-    z-index: 999;
-    position: relative;
-    background: #8FC0A9;
+    padding-left: 150px;
+    padding-right: 150px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background: rgb(55,68,68);
+}
+
+.bottomlogo {
+    text-decoration: none;
+    display: flex;
+    width: 356px;
+    height: 37px;
+    padding-bottom: 60px;
+}
+  
+.bottomlogo-text {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 45px;
+    line-height: 28px;
+    color: rgb(208,241,241);
+    color: -moz-linear-gradient(20deg, rgba(208,241,241,1) 0%, rgba(239,247,227,1) 100%);
+    color: -webkit-linear-gradient(20deg, rgba(208,241,241,1) 0%, rgba(239,247,227,1) 100%);
+    color: linear-gradient(20deg, rgba(208,241,241,1) 0%, rgba(239,247,227,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#d0f1f1",endColorstr="#eff7e3",GradientType=1);
+    text-decoration: none;
+}
+
+p {
+    color: rgb(208,241,241);
+    font-size: 12px;
+}
+
+h1 {
+    color:rgb(208,241,241);
+}
+
+.text {
+    font-size: 14px;
+    padding-bottom: 25px;
+}
+
+.links-container {
+    flex-direction: column;
+    padding-left: 200px;
+}
+
+.low-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.low-text {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    color: rgb(208,241,241);
+    text-decoration: none;
+    padding: 10px;
+}
+
+.contact-container {
+    flex-direction: column;
+    padding-left: 150px;
 }

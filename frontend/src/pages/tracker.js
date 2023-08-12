@@ -145,7 +145,7 @@ const Tracker = () => {
         <div className='page-container'>
             <div className='form-container'>
                 <form className='form' action='/tracker' method='post' onSubmit={handleSubmit}>
-                    <h1>Input EPD Data</h1>
+                    <h1 className='tracker-title'>Input EPD Data</h1>
                     <div className='input1'>
                         <div className='input-container'>
                             <label>Material Category</label>
@@ -174,7 +174,7 @@ const Tracker = () => {
                         </div>
                     </div>
                     <div className='input2'>
-                        <h1>Global Warming Potential &#40;GWP&#41; kg C02 -eq</h1>
+                        <h1 className='tracker-title'>Global Warming Potential &#40;GWP&#41; kg C02 -eq</h1>
                         <h3>EPD Declared Unit</h3>
                         <div className='input-container'>
                             <label>Declared Unit</label>
@@ -255,7 +255,7 @@ const Tracker = () => {
 
             <div className='gradient-transition'>
                 <div className='table-section'>
-                    <h1>Data Table</h1>
+                    <h1 className='tracker-title'>Data Table</h1>
                     <div className='table-container'>
                         <DataTable columns={columns} data={tableData} className="react-table"/>
                     </div>
@@ -263,7 +263,7 @@ const Tracker = () => {
             </div>
 
             <div className='overallchart-container'>
-                <h1>Create Graphs</h1>
+                <h1 className='tracker-title'>Create Graphs</h1>
                 <div className='chartcontainer-one'>
                     <h3>Compare GWP of Different Construction Stages</h3>
                     <div className='barchart-container'>
