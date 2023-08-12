@@ -1,11 +1,14 @@
 import React from 'react';
 import './home.css';
+import mediaimg from '../media/MediaTest.png';
+import table from '../media/TableShot1.png';
 
 const Home = () => {
 
     return (
         <div className='container'>
             <section className='one'>
+                <img src={mediaimg} alt='mediaimg' className='mediaimg' />
                 <div>
                     <h1 className='EPData'>EPData.</h1>
                     <p>
@@ -18,6 +21,7 @@ const Home = () => {
                 <p>
                     Create <span style={{ color: '#D47416' }}>tables and graphs</span>
                 </p>
+                <img src={table} alt='tableimg' className='tableimg' />
             </section>
             <section className='three'>
                 <div className='three-text'>
