@@ -17,7 +17,6 @@ h3 {
 
 .page-container {
     background-color: #ffffff;
-    position: relative;
 }
 
 .form-container {
@@ -53,14 +52,12 @@ h3 {
 .input-group {
     display: flex;
     flex-direction: column;
-    /* This will make each input-group take 33% of the available width with some gap in between */
     flex: 0 1 calc(33% - 20px);
 }
 
 .input-group2 {
     display: flex;
     flex-direction: column;
-    /* This will make each input-group take 33% of the available width with some gap in between */
     flex: 0 1 calc(50% - 20px);
 }
 

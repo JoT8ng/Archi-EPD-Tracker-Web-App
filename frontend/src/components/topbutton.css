@@ -4,9 +4,9 @@
 }
 
 .topbutton {
-    position: absolute;
+    position: fixed;
     bottom: 50px;
-    right: 100px;
+    right: 50px;
     border: none;
     background: transparent;
     padding: 0;

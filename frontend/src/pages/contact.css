@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.contact-page {
+    display: flex;
+    width: 100%;
+    height: calc(100vh - 75px);
+    background: rgb(240,243,202);
+    background: -moz-linear-gradient(0deg, rgba(240,243,202,1) 0%, rgba(175,232,231,1) 100%);
+    background: -webkit-linear-gradient(0deg, rgba(240,243,202,1) 0%, rgba(175,232,231,1) 100%);
+    background: linear-gradient(0deg, rgba(240,243,202,1) 0%, rgba(175,232,231,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f0f3ca",endColorstr="#afe8e7",GradientType=1);
+}
+
+.contactpage-container {
+    margin: auto;
+    justify-content: space-between;
+    align-items: center;
+    padding: 150px;
+}
+
+.contact-title {
+    color: black;
+    padding-bottom: 25px;
+    text-align: center;
+}
+
+.contact-text {
+    color: black;
+    padding-bottom: 25px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    text-align: center;
+}
+
+.socialmedia {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 25px;
+}

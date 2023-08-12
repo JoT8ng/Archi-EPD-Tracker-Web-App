@@ -6,6 +6,7 @@ import Contact from './pages/contact';
 import Navbar from './components/navbar';
 import Lowbar from './components/lowbar';
 import './App.css';
+import TopButton from './components/topbutton';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path='/tracker' element={<Tracker />} />
         <Route path='/contact' element={<Contact />} />
       </Routes>
+      <TopButton />
       <Lowbar />
     </>
   );

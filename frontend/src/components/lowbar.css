@@ -82,3 +82,8 @@ h1 {
     flex-direction: column;
     padding-left: 150px;
 }
+
+.lowbar-icons {
+    display: flex;
+    align-items: center;
+}
