@@ -2,6 +2,7 @@ import React from 'react';
 import './home.css';
 import mediaimg from '../media/MediaTest.png';
 import table from '../media/TableShot1.png';
+import Showchart from '../components/showchart';
 
 const Home = () => {
 
@@ -21,7 +22,10 @@ const Home = () => {
                 <p>
                     Create <span style={{ color: '#D47416' }}>tables and graphs</span>
                 </p>
-                <img src={table} alt='tableimg' className='tableimg' />
+                <div>
+                    <img src={table} alt='tableimg' className='tableimg' />
+                    <Showchart />
+                </div>
             </section>
             <section className='three'>
                 <div className='three-text'>

@@ -140,6 +140,7 @@ section {
 .lca-box {
     display: flex;
     justify-content: center;
+    padding-bottom: 50px;
 }
 
 .construction-stages {
