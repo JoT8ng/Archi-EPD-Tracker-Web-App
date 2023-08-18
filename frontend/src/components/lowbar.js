@@ -8,7 +8,7 @@ const Lowbar = () => {
         <nav className='lowbar'>
             <div className='logo-container'>
                 <NavLink exact to='/' className='bottomlogo'>
-                    <span className='bottomlogo-text'>EPData.</span>
+                    <span className='bottomlogo-text'>EPD<span style={{ fontStyle: 'normal', fontWeight: '400' }}>ata</span>.</span>
                 </NavLink>
                 <p>&#169; 2023 Jocelyn Tang. All Rights Reserved</p>
             </div>
@@ -29,7 +29,7 @@ const Lowbar = () => {
                     <NavLink to='https://github.com/JoT8ng/Archi-EPD-Tracker-Web-App'>
                         <BsGithub style={{width: '30px', height: '30px', color: 'rgb(208,241,241)'}} />
                     </NavLink>
-                    <NavLink to='https://www.linkedin.com/in/jocelyntang/'>
+                    <NavLink to='https://uk.linkedin.com/in/jocelyntang'>
                         <BsLinkedin style={{width: '50px', height: '50px', color: 'rgb(208,241,241)', paddingLeft: '25px'}} />
                     </NavLink>
                 </div>

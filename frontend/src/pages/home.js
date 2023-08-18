@@ -11,7 +11,7 @@ const Home = () => {
             <section className='one'>
                 <img src={mediaimg} alt='mediaimg' className='mediaimg' />
                 <div>
-                    <h1 className='EPData'>EPData.</h1>
+                    <h1 className='EPData'>EPD<span style={{ fontStyle: 'normal', fontWeight: '400' }}>ata</span>.</h1>
                     <p>
                         Track compare, and visualize <span style={{ color: '#D47416' }}>embodied 
                         carbon emissions</span> of construction materials

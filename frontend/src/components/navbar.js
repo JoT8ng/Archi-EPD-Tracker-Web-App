@@ -6,7 +6,7 @@ const Navbar = () => {
     return(
         <nav className='navbar'>
             <NavLink exact to='/' className='logo'>
-                <span className='logo-text'>EPData.</span>
+                <span className='logo-text'>EPD<span style={{ fontStyle: 'normal', fontWeight: '400' }}>ata</span>.</span>
             </NavLink>
             <ul className='nav-list'>
                 <li>

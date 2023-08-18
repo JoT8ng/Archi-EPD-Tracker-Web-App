@@ -9,7 +9,7 @@ import Piecharttwo from '../components/piechart2';
 
 
 // Create React Table
-const DataTable = ({ columns, data }) => {
+const DataTable = ({ columns, data, handleDelete }) => {
     const {
       getTableProps,
       getTableBodyProps,
@@ -23,9 +23,10 @@ const DataTable = ({ columns, data }) => {
         <thead>
           {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
-                <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-              ))}
+                <th>Edit</th>
+                {headerGroup.headers.map(column => (
+                    <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                ))}
             </tr>
           ))}
         </thead>
@@ -33,11 +34,14 @@ const DataTable = ({ columns, data }) => {
           {rows.map(row => {
             prepareRow(row);
             return (
-              <tr {...row.getRowProps()}>
+            <tr {...row.getRowProps()}>
+                <td>
+                    <button onClick={() => handleDelete(row)}>Delete</button>
+                </td>
                 {row.cells.map(cell => {
                   return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>;
                 })}
-              </tr>
+            </tr>
             );
           })}
         </tbody>
@@ -118,6 +122,28 @@ const Tracker = () => {
         fetchBackendData();
     }, [])
 
+    const handleDelete = (row) => {
+        // Get the data for the row
+        const rowData = row.original;
+
+        fetch('/delete', {
+            method: 'POST',
+            body: JSON.stringify(rowData),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+            // Remove the deleted row from tableData state
+            setTableData(prevData => prevData.filter(item => item !== rowData));
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    };
+
     // React Table Data
     const columns = [
         { Header: 'Material Category', accessor: 'material_category' },
@@ -146,6 +172,10 @@ const Tracker = () => {
             <div className='form-container'>
                 <form className='form' action='/tracker' method='post' onSubmit={handleSubmit}>
                     <h1 className='tracker-title'>Input EPD Data</h1>
+                    <p className='form-p'>
+                        All input data will be deleted once the page is refreshed or the web application is closed. 
+                        In the event that the data is not deleted, the data will be cleared after one day.
+                    </p>
                     <div className='input1'>
                         <div className='input-container'>
                             <label>Material Category</label>
@@ -183,7 +213,7 @@ const Tracker = () => {
                         <div className='input-grid'>
                             <div className='input-group2'>
                                 <label>Value 1</label>
-                                <input id='value1' name='value1' type='number' placeholder='Number Value' required></input>
+                                <input id='value1' name='value1' type='number' step='0.01' placeholder='Number Value' required></input>
                             </div>
                             <div className='input-group2'>
                                 <label>Unit 1</label>
@@ -194,7 +224,7 @@ const Tracker = () => {
                             </div>
                             <div className='input-group2'>
                                 <label>Value 2</label>
-                                <input id='value2' name='value2' type='number' placeholder='Number Value' required></input>
+                                <input id='value2' name='value2' type='number' step='0.01' placeholder='Number Value' required></input>
                             </div>
                             <div className='input-group2'>
                                 <label>Unit 2</label>
@@ -206,25 +236,25 @@ const Tracker = () => {
                         </div>
                         <div className='input-container'>
                             <label>Volume of Material in Project &#40;m3&#41;</label>
-                            <input id='mat_volume' name='mat_volume' type='number' placeholder='Volume' required></input>
+                            <input id='mat_volume' name='mat_volume' type='number' step='0.01' placeholder='Volume' required></input>
                         </div>
                     </div>
                         <div className='input-grid'>
                             <div className='input-group'>
                                 <label>A1-A3</label>
-                                <input id='a1to3' name='a1to3' type='number' placeholder='GWP' required></input>
+                                <input id='a1to3' name='a1to3' type='number' step='0.01' placeholder='GWP' required></input>
                             </div>
                             <div className='input-group'>
                                 <label>A4</label>
-                                <input id='a4' name='a4' type='number' placeholder='GWP' required></input>
+                                <input id='a4' name='a4' type='number' step='0.01' placeholder='GWP' required></input>
                             </div>
                             <div className='input-group'>
                                 <label>A5</label>
-                                <input id='a5' name='a5' type='number' placeholder='GWP' required></input>
+                                <input id='a5' name='a5' type='number' step='0.01' placeholder='GWP' required></input>
                             </div>
                             <div className='input-group'>
                                 <label>B1</label>
-                                <input id='b1' name='b1' type='number' placeholder='GWP' required></input>
+                                <input id='b1' name='b1' type='number' step='0.01' placeholder='GWP' required></input>
                             </div>
                             <div className='input-group'>
                                 <label>B2</label>
@@ -232,19 +262,19 @@ const Tracker = () => {
                             </div>
                             <div className='input-group'>
                                 <label>B3</label>
-                                <input id='b3' name='b3' type='number' placeholder='GWP' required></input>
+                                <input id='b3' name='b3' type='number' step='0.01' placeholder='GWP' required></input>
                             </div>
                             <div className='input-group'>
                                 <label>B4</label>
-                                <input id='b4' name='b4' type='number' placeholder='GWP' required></input>
+                                <input id='b4' name='b4' type='number' step='0.01' placeholder='GWP' required></input>
                             </div>
                             <div className='input-group'>
                                 <label>B5</label>
-                                <input id='b5' name='b5' type='number' placeholder='GWP' required></input>
+                                <input id='b5' name='b5' type='number' step='0.01' placeholder='GWP' required></input>
                             </div>
                             <div className='input-group'>
                                 <label>B6</label>
-                                <input id='b6' name='b6' type='number' placeholder='GWP' required></input>
+                                <input id='b6' name='b6' type='number' step='0.01' placeholder='GWP' required></input>
                             </div>
                         </div>
                     <div className='input3'>
@@ -257,7 +287,7 @@ const Tracker = () => {
                 <div className='table-section'>
                     <h1 className='tracker-title'>Data Table</h1>
                     <div className='table-container'>
-                        <DataTable columns={columns} data={tableData} className="react-table"/>
+                        <DataTable columns={columns} data={tableData} handleDelete={handleDelete} className="react-table"/>
                     </div>
                 </div>
             </div>

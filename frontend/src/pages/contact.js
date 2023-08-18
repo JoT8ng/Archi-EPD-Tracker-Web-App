@@ -16,7 +16,7 @@ const Contact = () => {
                     <NavLink to='https://github.com/JoT8ng/Archi-EPD-Tracker-Web-App'>
                             <BsGithub style={{width: '30px', height: '30px', color: '#000000'}} />
                         </NavLink>
-                    <NavLink to='https://www.linkedin.com/in/jocelyntang/'>
+                    <NavLink to='https://uk.linkedin.com/in/jocelyntang'>
                             <BsLinkedin style={{width: '50px', height: '50px', color: '#000000', paddingLeft: '25px'}} />
                     </NavLink>
                 </div>

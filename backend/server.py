@@ -98,15 +98,46 @@ def clear_session():
     else:
         return {"message": "Session data not found and deleted"}, 404
 
-# Test API route
-@app.route("/testdata")
-def testdata():
-    """Handler for the /testdata route"""
-    test_data = {
-        "data1": "Hi my name is Jo",
-        "data2": "blah blah blah"
-    }
-    return test_data
+@app.route("/delete", methods=["POST"])
+def delete():
+    # Delete row data route
+    if request.method == "POST":
+        try:
+            # Get JSON data from the frontend
+            data = request.get_json()
+
+            # Query the database for the row with matching data
+            row_to_delete = TrackerData.query.filter_by(
+                material_category=data["material_category"],
+                product_name=data["product_name"],
+                material_name=data["material_name"],
+                manufacturer=data["manufacturer"], 
+                declared_unit=data["declared_unit"],
+                value1=data["value1"], 
+                unit1=data["unit1"], 
+                value2=data["value2"], 
+                unit2=data["unit2"], 
+                mat_volume=data["mat_volume"], 
+                a1to3=data["a1to3"], 
+                a4=data["a4"], 
+                a5=data["a5"], 
+                b1=data["b1"], 
+                b2=data["b2"], 
+                b3=data["b3"], 
+                b4=data["b4"], 
+                b5=data["b5"], 
+                b6=data["b6"]
+            ).first()
+
+            if row_to_delete:
+                db.session.delete(row_to_delete)
+                db.session.commit()
+                return jsonify({"message": "Row deleted successfully"})
+            else:
+                return jsonify({"message": "Row not found in the database"})
+            
+        except Exception as e:
+            return jsonify({"error": str(e)})
 
 
 if __name__ == "__main__":
