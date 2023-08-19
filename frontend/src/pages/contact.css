@@ -7,9 +7,6 @@
 }
 
 .contact-page {
-    display: flex;
-    width: 100%;
-    height: calc(100vh - 75px);
     background: rgb(240,243,202);
     background: -moz-linear-gradient(0deg, rgba(240,243,202,1) 0%, rgba(175,232,231,1) 100%);
     background: -webkit-linear-gradient(0deg, rgba(240,243,202,1) 0%, rgba(175,232,231,1) 100%);
@@ -18,8 +15,11 @@
 }
 
 .contactpage-container {
+    display: flex;
+    width: 100%;
+    height: calc(100vh - 75px);
+    flex-direction: column;
     margin: auto;
-    justify-content: space-between;
     align-items: center;
     padding: 150px;
 }
@@ -44,4 +44,12 @@
     justify-content: center;
     align-items: center;
     padding-top: 25px;
+}
+
+@media (max-width: 1050px) {
+    .contactpage-container {
+        padding: 25px;
+        height: 100vh;
+        justify-content: center;
+    }
 }

@@ -22,9 +22,13 @@ const Home = () => {
                 <p>
                     Create <span style={{ color: '#D47416' }}>tables and graphs</span>
                 </p>
-                <div>
-                    <img src={table} alt='tableimg' className='tableimg' />
-                    <Showchart />
+                <div className='twomedia'>
+                    <div>
+                        <img src={table} alt='tableimg' className='tableimg' />
+                        <div>
+                            <Showchart />
+                        </div>
+                    </div>
                 </div>
             </section>
             <section className='three'>

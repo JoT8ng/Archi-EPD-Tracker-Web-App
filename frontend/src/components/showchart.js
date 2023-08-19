@@ -63,8 +63,8 @@ export const ChartData = {
 
 export function Showchart() {
     return (
-        <div style={{ width: '100%', margin: 'auto', paddingTop: '25px' }}>
-            <Bar width={750} height={350} data={ChartData} options={options} />
+        <div style={{ width: '80%', margin: 'auto' }}>
+            <Bar width={1500} height={700} data={ChartData} options={options} />
         </div>
     );
 }

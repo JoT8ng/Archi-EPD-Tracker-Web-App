@@ -13,9 +13,23 @@ html {
     padding: 0;
 }
 
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 150px;
+    padding-right: 150px;
+    background: rgb(208,241,241);
+    background: -moz-linear-gradient(20deg, rgba(208,241,241,1) 0%, rgba(239,247,227,1) 100%);
+    background: -webkit-linear-gradient(20deg, rgba(208,241,241,1) 0%, rgba(239,247,227,1) 100%);
+    background: linear-gradient(20deg, rgba(208,241,241,1) 0%, rgba(239,247,227,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#d0f1f1",endColorstr="#eff7e3",GradientType=1);
+    position: sticky;
+    top: 0;
+}
+
 .logo {
     text-decoration: none;
-    display: flex;
     width: 356px;
     height: 37px;
 }
@@ -49,29 +63,70 @@ html {
     transition: transform 0.25s ease-out;
 }
 
-.navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    padding-left: 150px;
-    padding-right: 150px;
-    background: rgb(208,241,241);
-    background: -moz-linear-gradient(20deg, rgba(208,241,241,1) 0%, rgba(239,247,227,1) 100%);
-    background: -webkit-linear-gradient(20deg, rgba(208,241,241,1) 0%, rgba(239,247,227,1) 100%);
-    background: linear-gradient(20deg, rgba(208,241,241,1) 0%, rgba(239,247,227,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#d0f1f1",endColorstr="#eff7e3",GradientType=1);
-}
-
-.nav-list {
+nav ul {
     display: flex;
 }
 
-.nav-list li {
+nav ul li {
     list-style: none;
     padding: 26px 30px;
 }
 
-.nav-list li a {
+nav ul li a {
     text-decoration: none;
+}
+
+nav .menu {
+    display: none;
+    position: absolute;
+    top: 0.8rem;
+    right: 0.8rem;
+    align-items: flex-end;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 2.25rem;
+    height: 1.5rem;
+}
+
+nav .menu span {
+    height: 0.2rem;
+    width: 100%;
+    background-color: #000000;
+    border-radius: 0.2rem;
+}
+
+@media (max-width: 900px) {
+    .logo {
+        width: 0px
+    }
+    
+    nav .menu {
+        display: flex;
+    }
+
+    .navbar {
+        align-items: flex-start;
+        padding: 15px;
+    }
+
+    nav ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        margin-bottom: 0.25rem;
+    }
+
+    nav ul.open {
+        display: flex;
+        flex-direction: column;
+    }
+
+    nav ul li {
+        width: 100%;
+        text-align: center;
+    }
+
+    nav ul li a {
+        margin: 0.2rem 0.5rem;
+    }
 }
