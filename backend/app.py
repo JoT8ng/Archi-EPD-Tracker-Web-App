@@ -88,6 +88,6 @@ def before_request():
     app.permanent_session_lifetime = timedelta(days=1)
 
     # Generate a session id
-    if 'sid' not in session:
+    if "sid" not in session:
         # Generate a unique session id
-        session['sid'] = str(uuid.uuid4())
+        session["sid"] = str(uuid.uuid4())

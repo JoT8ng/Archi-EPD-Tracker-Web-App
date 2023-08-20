@@ -33,7 +33,7 @@ def tracker():
         print(request.form)
 
         tracker_data = TrackerData(
-            session['sid'], 
+            session["sid"], 
             material_category=material_category, 
             product_name=product_name, 
             material_name=material_name, 
@@ -58,7 +58,7 @@ def tracker():
         db.session.commit()
 
     # Query the database to get the session data
-    session_data = TrackerData.query.filter_by(session_id=session['sid']).all()
+    session_data = TrackerData.query.filter_by(session_id=session["sid"]).all()
 
     # Convert session_data to a list of dictionaries to be sent to frontend
     result = []
