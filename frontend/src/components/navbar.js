@@ -8,7 +8,7 @@ const Navbar = () => {
 
     return(
         <nav className='navbar'>
-            <NavLink exact to='/' className='logo'>
+            <NavLink to='/' className='logo'>
                 <span className='logo-text'>EPD<span style={{ fontStyle: 'normal', fontWeight: '400' }}>ata</span>.</span>
             </NavLink>
             <div className='menu' onClick={() => setMenuOpen(!menuOpen)}>
