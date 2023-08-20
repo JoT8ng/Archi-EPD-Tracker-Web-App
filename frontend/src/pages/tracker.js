@@ -19,33 +19,33 @@ const DataTable = ({ columns, data, handleDelete }) => {
     } = useTable({ columns, data });
   
     return (
-      <table {...getTableProps()} className='react-table'>
-        <thead>
-          {headerGroups.map(headerGroup => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-                <th>Edit</th>
-                {headerGroup.headers.map(column => (
-                    <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+        <table {...getTableProps()} className='react-table'>
+            <thead>
+                {headerGroups.map(headerGroup => (
+                <tr {...headerGroup.getHeaderGroupProps()}>
+                    <th>Edit</th>
+                    {headerGroup.headers.map(column => (
+                        <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+                    ))}
+                </tr>
                 ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map(row => {
-            prepareRow(row);
-            return (
-            <tr {...row.getRowProps()}>
-                <td>
-                    <button onClick={() => handleDelete(row)}>Delete</button>
-                </td>
-                {row.cells.map(cell => {
-                  return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>;
+            </thead>
+            <tbody {...getTableBodyProps()}>
+                {rows.map(row => {
+                prepareRow(row);
+                return (
+                <tr {...row.getRowProps()}>
+                    <td>
+                        <button onClick={() => handleDelete(row)}>Delete</button>
+                    </td>
+                    {row.cells.map(cell => {
+                    return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>;
+                    })}
+                </tr>
+                );
                 })}
-            </tr>
-            );
-          })}
-        </tbody>
-      </table>
+            </tbody>
+        </table>
     );
   };  
 
@@ -179,21 +179,21 @@ const Tracker = () => {
                     <div className='input1'>
                         <div className='input-container'>
                             <label>Material Category</label>
-                            <select id="material_category" name="material_category">
-                                <option value="Concrete">Concrete</option>
-                                <option value="Wood">Wood</option>
-                                <option value="Brick">Brick</option>
-                                <option value="Glass">Glass</option>
-                                <option value="Steel">Steel</option>
-                                <option value="Aluminum">Aluminum</option>
-                                <option value="Other_Metals">Other Metals</option>
-                                <option value="Stone">Stone</option>
-                                <option value="Ceramics">Ceramics</option>
-                                <option value="Plaster">Plaster</option>
-                                <option value="Fabric">Fabric</option>
-                                <option value="Insulation">Insulation</option>
-                                <option value="Waterproofing">Waterproofing</option>
-                                <option value="Other">Other</option>
+                            <select id='material_category' name='material_category'>
+                                <option value='Concrete'>Concrete</option>
+                                <option value='Wood'>Wood</option>
+                                <option value='Brick'>Brick</option>
+                                <option value='Glass'>Glass</option>
+                                <option value='Steel'>Steel</option>
+                                <option value='Aluminum'>Aluminum</option>
+                                <option value='Other_Metals'>Other Metals</option>
+                                <option value='Stone'>Stone</option>
+                                <option value='Ceramics'>Ceramics</option>
+                                <option value='Plaster'>Plaster</option>
+                                <option value='Fabric'>Fabric</option>
+                                <option value='Insulation'>Insulation</option>
+                                <option value='Waterproofing'>Waterproofing</option>
+                                <option value='Other'>Other</option>
                             </select>
                             <label>Product Name</label>
                             <input id='product_name' name='product_name' type='text' placeholder='Name' required></input>
@@ -217,9 +217,9 @@ const Tracker = () => {
                             </div>
                             <div className='input-group2'>
                                 <label>Unit 1</label>
-                                <select id="unit1" name="unit1">
-                                    <option value="kg">kg</option>
-                                    <option value="m2">m2</option>
+                                <select id='unit1' name='unit1'>
+                                    <option value='kg'>kg</option>
+                                    <option value='m2'>m2</option>
                                 </select>
                             </div>
                             <div className='input-group2'>
@@ -228,9 +228,9 @@ const Tracker = () => {
                             </div>
                             <div className='input-group2'>
                                 <label>Unit 2</label>
-                                <select id="unit2" name="unit2">
-                                    <option value="kg">kg</option>
-                                    <option value="m2">m2</option>
+                                <select id='unit2' name='unit2'>
+                                    <option value='kg'>kg</option>
+                                    <option value='m2'>m2</option>
                                 </select>
                             </div>
                         </div>
@@ -287,7 +287,7 @@ const Tracker = () => {
                 <div className='table-section'>
                     <h1 className='tracker-title'>Data Table</h1>
                     <div className='table-container'>
-                        <DataTable columns={columns} data={tableData} handleDelete={handleDelete} className="react-table"/>
+                        <DataTable columns={columns} data={tableData} handleDelete={handleDelete} className='react-table'/>
                     </div>
                 </div>
             </div>
