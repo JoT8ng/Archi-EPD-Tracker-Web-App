@@ -13,6 +13,7 @@ ChartJS.register(
 
 export const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
         legend: {
             position: 'top',
@@ -64,7 +65,7 @@ export const ChartData = {
 export function Showchart() {
     return (
         <div style={{ width: '80%', margin: 'auto' }}>
-            <Bar width={1500} height={700} data={ChartData} options={options} />
+            <Bar width={1500} height={550} data={ChartData} options={options} />
         </div>
     );
 }

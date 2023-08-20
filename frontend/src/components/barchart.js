@@ -140,7 +140,7 @@ const Barchart = () => {
                     ))}
                 </select>
             </div>
-            <Bar width={1500} height={700} data={newChartData} options={options} />
+            <Bar width={100} height={100} data={newChartData} options={options} />
         </div>
     );
 }

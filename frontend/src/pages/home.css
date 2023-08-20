@@ -180,8 +180,8 @@
     }
 
     .one p {
-        font-size: 14px;
-        line-height: 17px;
+        font-size: 20px;
+        line-height: 27px;
         text-align: center;
     }
 
@@ -193,8 +193,8 @@
     }
 
     .two p {
-        font-size: 14px;
-        line-height: 17px;
+        font-size: 20px;
+        line-height: 27px;
         text-align: center;
         padding-right: 0px;
         padding-bottom: 25px;
@@ -238,6 +238,7 @@
         font-size: 12px;
         color: #000000;
         padding-bottom: 25px;
+        text-align: left;
     }
     
     .three h3 {
