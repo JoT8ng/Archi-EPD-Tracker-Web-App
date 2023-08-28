@@ -3,16 +3,35 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import timedelta
 import uuid
 from flask_cors import CORS
-import os
+from os import environ
 from dotenv import load_dotenv
+from config import config_by_name, FLASK_ENV
 
 load_dotenv('.flaskenv')
 
 app = Flask(__name__)
-app.secret_key = os.getenv("SECRET_KEY", default=os.urandom(32))
-CORS(app)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///tracker.db"
+app.config.from_object(config_by_name[FLASK_ENV])
+print(f"Running with config: {FLASK_ENV}")
+
+cors_origins = app.config["CORS_ORIGINS"]
+cors_supports_credentials = app.config["CORS_SUPPORTS_CREDENTIALS"]
+
+CORS(app, origins=cors_origins, methods=["POST"], supports_credentials=cors_supports_credentials)
+
+# General Config
+app.secret_key = environ.get("SECRET_KEY")
+flask_debug = app.config["FLASK_DEBUG"]
+database_uri = app.config["SQLALCHEMY_DATABASE_URI"]
+dev_server_host = app.config["DEV_SERVER_HOST"]
+dev_server_port = app.config["DEV_SERVER_PORT"]
+prod_server_host = app.config["PROD_SERVER_HOST"]
+prod_server_port = app.config["PROD_SERVER_PORT"]
+staging_server_host = app.config["STAGING_SERVER_HOST"]
+staging_server_port = app.config["STAGING_SERVER_PORT"]
+session_cookie_secure = app.config["SESSION_COOKIE_SECURE"]
+
 db = SQLAlchemy(app)
+
 
 # Define Tracker data table model
 class TrackerData(db.Model):

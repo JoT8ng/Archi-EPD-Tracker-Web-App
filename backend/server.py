@@ -143,4 +143,10 @@ def delete():
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-    app.run(host="localhost", port=5000, debug=True)
+
+    if app.config["FLASK_ENV"] == "dev":
+        app.run(host=dev_server_host, port=dev_server_port, debug=True)
+    elif app.config["FLASK_ENV"] == "prod":
+        app.run(host=prod_server_host, port=prod_server_port)
+    elif app.config["FLASK_ENV"] == "staging":
+        app.run(host=staging_server_host, port=staging_server_port)
