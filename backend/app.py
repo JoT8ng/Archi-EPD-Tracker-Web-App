@@ -1,4 +1,4 @@
-from flask import Flask, session
+from flask import Flask, session, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from datetime import timedelta
 import uuid
@@ -6,12 +6,15 @@ from flask_cors import CORS
 from os import environ
 from dotenv import load_dotenv
 from config import config_by_name, FLASK_ENV
+from flask_wtf.csrf import generate_csrf, CSRFProtect
 
 load_dotenv('.flaskenv')
 
 app = Flask(__name__)
 app.config.from_object(config_by_name[FLASK_ENV])
 print(f"Running with config: {FLASK_ENV}")
+
+csrf = CSRFProtect(app)
 
 cors_origins = app.config["CORS_ORIGINS"]
 cors_supports_credentials = app.config["CORS_SUPPORTS_CREDENTIALS"]
@@ -109,3 +112,13 @@ def before_request():
     if "sid" not in session:
         # Generate a unique session id
         session["sid"] = str(uuid.uuid4())
+
+@app.route('/get_csrf_token', methods=['GET'])
+def get_csrf_token():
+    token = generate_csrf()
+    # Log the CSRF token to the console
+    print("CSRF Token:", token)
+    # Log the request headers
+    request_headers = dict(request.headers)
+    print("Request Headers:", request_headers)
+    return jsonify({'csrf_token': token})

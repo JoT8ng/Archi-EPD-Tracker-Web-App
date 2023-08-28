@@ -50,13 +50,19 @@ const DataTable = ({ columns, data, handleDelete }) => {
   };  
 
 const Tracker = () => {
-
     // Code to handle form submission and send data to backend Flask database
     const [errorMessage, setErrorMessage] = useState('');
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         // Prevent default form submission behaviour
         event.preventDefault();
+
+        // Fetch the CSRF token from the backend
+        const csrfResponse = await fetch('/get_csrf_token');
+        const csrfData = await csrfResponse.json();
+        const backendCsrfToken = csrfData.csrf_token;
+
+        console.log("Expected CSRF Token:", backendCsrfToken);
 
         // Get form data
         const formData = new FormData(event.target);
@@ -65,6 +71,10 @@ const Tracker = () => {
         fetch('/tracker', {
             method: 'POST',
             body: formData,
+            // Include CSRF token in the header
+            headers: {
+                'X-CSRFToken': backendCsrfToken,
+            },
         })
         .then((response) => response.json())
         .then((data) => {
@@ -90,9 +100,19 @@ const Tracker = () => {
     }
 
     // Function to send request to backend server to clear session data once web app or browser is closed
-    const clearSession = () => {
+    const clearSession = async () => {
+        // Fetch the CSRF token from the backend
+        const csrfResponse = await fetch('/get_csrf_token');
+        const csrfData = await csrfResponse.json();
+        const backendCsrfToken = csrfData.csrf_token;
+        
+        console.log("Expected CSRF Token:", backendCsrfToken);
+
         fetch('/clearsession', {
-            method: 'POST'
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': backendCsrfToken,
+            },
         })
         .then(response => {
             console.log('Session data deleted successfully');
@@ -134,15 +154,23 @@ const Tracker = () => {
         fetchBackendData();
     }, [])
 
-    const handleDelete = (row) => {
+    const handleDelete = async (row) => {
         // Get the data for the row
         const rowData = row.original;
+
+        // Fetch the CSRF token from the backend
+        const csrfResponse = await fetch('/get_csrf_token');
+        const csrfData = await csrfResponse.json();
+        const backendCsrfToken = csrfData.csrf_token;
+        
+        console.log("Expected CSRF Token:", backendCsrfToken);
 
         fetch('/delete', {
             method: 'POST',
             body: JSON.stringify(rowData),
             headers: {
                 'Content-Type': 'application/json',
+                'X-CSRFToken': backendCsrfToken,
             },
         })
         .then((response) => response.json())
