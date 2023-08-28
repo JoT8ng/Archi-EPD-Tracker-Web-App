@@ -54,8 +54,13 @@ def tracker():
             b5=b5, 
             b6=b6
             )
-        db.session.add(tracker_data)
-        db.session.commit()
+        
+        try:
+            db.session.add(tracker_data)
+            db.session.commit()
+        except ValueError:
+            error_message = "Failed to commit data to the database."
+            return {"error": error_message}, 400
 
     # Query the database to get the session data
     session_data = TrackerData.query.filter_by(session_id=session["sid"]).all()

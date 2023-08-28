@@ -52,6 +52,8 @@ const DataTable = ({ columns, data, handleDelete }) => {
 const Tracker = () => {
 
     // Code to handle form submission and send data to backend Flask database
+    const [errorMessage, setErrorMessage] = useState('');
+
     const handleSubmit = (event) => {
         // Prevent default form submission behaviour
         event.preventDefault();
@@ -67,10 +69,20 @@ const Tracker = () => {
         .then((response) => response.json())
         .then((data) => {
             console.log(data);
-            // Fetch updated backend data
-            fetchBackendData();
-            // Clear form inputs after successful data submission to backend
-            event.target.reset();
+            if (data.error) {
+                // Handle the error message received from the backend
+                console.error('Error:', data.error);
+                // Display the error message to the user
+                // Update error message state
+                setErrorMessage(data.error);
+            } else {
+                // Clear error message state
+                setErrorMessage('');
+                // Fetch updated backend data
+                fetchBackendData();
+                // Clear form inputs after successful data submission to backend
+                event.target.reset();
+            }
         })
         .catch((error) => {
             console.error('Error:', error);
@@ -176,6 +188,7 @@ const Tracker = () => {
                         All input data will be deleted once the page is refreshed or the web application is closed. 
                         In the event that the data is not deleted, the data will be cleared after one day.
                     </p>
+                    <p className="error-message" color='red'>{errorMessage}</p>
                     <div className='input1'>
                         <div className='input-container'>
                             <label>Material Category</label>
@@ -196,11 +209,11 @@ const Tracker = () => {
                                 <option value='Other'>Other</option>
                             </select>
                             <label>Product Name</label>
-                            <input id='product_name' name='product_name' type='text' placeholder='Name' required></input>
+                            <input id='product_name' name='product_name' type='text' placeholder='Name' required pattern='^(?:\s*\w+\s*){1,50}$' title='Up to 50 words allowed'></input>
                             <label>Material Name</label>
-                            <input id='material_name' name='material_name' type='text' placeholder='Name' required></input>
+                            <input id='material_name' name='material_name' type='text' placeholder='Name' required pattern='^(?:\s*\w+\s*){1,50}$' title='Up to 50 words allowed'></input>
                             <label>Manufacturer</label>
-                            <input id='manufacturer' name='manufacturer' type='text' placeholder='Manufacturer' required></input>
+                            <input id='manufacturer' name='manufacturer' type='text' placeholder='Manufacturer' required pattern='^(?:\s*\w+\s*){1,50}$' title='Up to 50 words allowed'></input>
                         </div>
                     </div>
                     <div className='input2'>
@@ -208,7 +221,7 @@ const Tracker = () => {
                         <h3>EPD Declared Unit</h3>
                         <div className='input-container'>
                             <label>Declared Unit</label>
-                            <input id='declared_unit' name='declared_unit' type='text' placeholder='eg. one ton of cold rolled stainless steel' required></input>
+                            <input id='declared_unit' name='declared_unit' type='text' placeholder='eg. one ton of cold rolled stainless steel' required pattern='^(?:\s*\w+\s*){1,50}$' title='Up to 50 words allowed'></input>
                         </div>
                         <div className='input-grid'>
                             <div className='input-group2'>

@@ -15,7 +15,6 @@ print(f"Running with config: {FLASK_ENV}")
 
 cors_origins = app.config["CORS_ORIGINS"]
 cors_supports_credentials = app.config["CORS_SUPPORTS_CREDENTIALS"]
-
 CORS(app, origins=cors_origins, methods=["POST"], supports_credentials=cors_supports_credentials)
 
 # General Config
@@ -36,26 +35,26 @@ db = SQLAlchemy(app)
 # Define Tracker data table model
 class TrackerData(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    session_id = db.Column(db.String(100))
-    material_category = db.Column(db.String(100))
-    product_name = db.Column(db.String(100))
-    material_name = db.Column(db.String(100))
-    manufacturer = db.Column(db.String(100))
-    declared_unit = db.Column(db.String(100))
-    value1 = db.Column(db.Float)
-    unit1 = db.Column(db.String(100))
-    value2 = db.Column(db.Float)
-    unit2 = db.Column(db.String(100))
-    mat_volume = db.Column(db.Float)
-    a1to3 = db.Column(db.Float)
-    a4 = db.Column(db.Float)
-    a5 = db.Column(db.Float)
-    b1 = db.Column(db.Float)
-    b2 = db.Column(db.Float)
-    b3 = db.Column(db.Float)
-    b4 = db.Column(db.Float)
-    b5 = db.Column(db.Float)
-    b6 = db.Column(db.Float)
+    session_id = db.Column(db.String(100), nullable=False)
+    material_category = db.Column(db.String(100), nullable=False)
+    product_name = db.Column(db.String(100), nullable=False)
+    material_name = db.Column(db.String(100), nullable=False)
+    manufacturer = db.Column(db.String(100), nullable=False)
+    declared_unit = db.Column(db.String(100), nullable=False)
+    value1 = db.Column(db.Float, nullable=False)
+    unit1 = db.Column(db.String(100), nullable=False)
+    value2 = db.Column(db.Float, nullable=False)
+    unit2 = db.Column(db.String(100), nullable=False)
+    mat_volume = db.Column(db.Float, nullable=False)
+    a1to3 = db.Column(db.Float, nullable=False)
+    a4 = db.Column(db.Float, nullable=False)
+    a5 = db.Column(db.Float, nullable=False)
+    b1 = db.Column(db.Float, nullable=False)
+    b2 = db.Column(db.Float, nullable=False)
+    b3 = db.Column(db.Float, nullable=False)
+    b4 = db.Column(db.Float, nullable=False)
+    b5 = db.Column(db.Float, nullable=False)
+    b6 = db.Column(db.Float, nullable=False)
 
     def __init__(
             self, session_id, 
