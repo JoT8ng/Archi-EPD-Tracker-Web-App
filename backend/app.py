@@ -116,9 +116,6 @@ def before_request():
 @app.route('/get_csrf_token', methods=['GET'])
 def get_csrf_token():
     token = generate_csrf()
-    # Log the CSRF token to the console
-    print("CSRF Token:", token)
     # Log the request headers
     request_headers = dict(request.headers)
-    print("Request Headers:", request_headers)
     return jsonify({'csrf_token': token})

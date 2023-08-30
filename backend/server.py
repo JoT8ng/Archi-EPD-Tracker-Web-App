@@ -30,7 +30,6 @@ def tracker():
         b4 = request.form.get("b4", default=0.0)
         b5 = request.form.get("b5", default=0.0)
         b6 = request.form.get("b6", default=0.0)
-        print(request.form)
 
         tracker_data = TrackerData(
             session["sid"], 
