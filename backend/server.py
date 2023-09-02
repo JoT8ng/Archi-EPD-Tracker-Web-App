@@ -30,6 +30,7 @@ def tracker():
         b4 = request.form.get("b4", default=0.0)
         b5 = request.form.get("b5", default=0.0)
         b6 = request.form.get("b6", default=0.0)
+        print(request.form)
 
         tracker_data = TrackerData(
             session["sid"], 
@@ -67,7 +68,7 @@ def tracker():
     # Convert session_data to a list of dictionaries to be sent to frontend
     result = []
     for data in session_data:
-        result.append({
+        data_dict = ({
             "id": data.id,
             "material_category": data.material_category,
             "product_name": data.product_name,
@@ -89,6 +90,11 @@ def tracker():
             "b5": data.b5,
             "b6": data.b6
         })
+        result.append(data_dict)
+
+        # Print individual values for each key in data_dict
+        for key, value in data_dict.items():
+            print(f"{key}: {value}")
 
     return jsonify(result)
 
