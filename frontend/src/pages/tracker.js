@@ -50,6 +50,8 @@ const DataTable = ({ columns, data, handleDelete }) => {
   };  
 
 const Tracker = () => {
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
     // Code to handle form submission and send data to backend Flask database
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -61,7 +63,7 @@ const Tracker = () => {
         const formData = new FormData(event.target);
 
         // Make POST request to backend Flask API
-        fetch(`/tracker`, {
+        fetch(`${backendUrl}/tracker`, {
             method: 'POST',
             body: formData,
         })
@@ -90,7 +92,7 @@ const Tracker = () => {
 
     // Function to send request to backend server to clear session data once web app or browser is closed
     const clearSession = async () => {      
-        fetch(`/clearsession`, {
+        fetch(`${backendUrl}/clearsession`, {
             method: 'POST',
         })
         .then(response => {
@@ -120,7 +122,7 @@ const Tracker = () => {
     const [tableData, setTableData] = useState([]);
 
     const fetchBackendData = () => {
-        fetch(`/tracker`)
+        fetch(`${backendUrl}/tracker`)
         .then(response=>response.json())
         .then(data => {
             setTableData(data);
@@ -137,7 +139,7 @@ const Tracker = () => {
         // Get the data for the row
         const rowData = row.original;
 
-        fetch(`/delete`, {
+        fetch(`${backendUrl}/delete`, {
             method: 'POST',
             body: JSON.stringify(rowData),
             headers: {
