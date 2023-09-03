@@ -28,12 +28,14 @@ export const options = {
   };
 
 const Piechart = () => {
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
+    
     // Fetch backend database data
     const [graphData, setGraphData] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState('');
 
     useEffect(() => {
-        fetch('/tracker')
+        fetch(`${backendUrl}/tracker`)
         .then(response=>response.json())
         .then(data => setGraphData(data))
         .catch(error => console.error('Error fetching data:', error));
@@ -116,7 +118,7 @@ const Piechart = () => {
 
     // Handle Update
     const handleUpdate = async event => {
-        fetch('/tracker')
+        fetch(`${backendUrl}/tracker`)
         .then(response=>response.json())
         .then(data => setGraphData(data))
         .catch(error => console.error('Error fetching data:', error));

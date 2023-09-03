@@ -30,6 +30,8 @@ export const options = {
   };
 
 const Barcharttwo = () => {
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
     // Fetch backend database data
     const [graphData, setGraphData] = useState([]);
     const [selectedStage, setSelectedStage] = useState('');
@@ -52,7 +54,7 @@ const Barcharttwo = () => {
     const filteredKeys = columnKeys.filter(key => specificKeys.includes(key));
 
     useEffect(() => {
-        fetch('/tracker')
+        fetch(`${backendUrl}/tracker`)
         .then(response=>response.json())
         .then(data => setGraphData(data))
         .catch(error => console.error('Error fetching data:', error));
@@ -97,7 +99,7 @@ const Barcharttwo = () => {
 
     // Handle Update
      const handleUpdate = async event => {
-        fetch('/tracker')
+        fetch(`${backendUrl}/tracker`)
         .then(response=>response.json())
         .then(data => setGraphData(data))
         .catch(error => console.error('Error fetching data:', error));
