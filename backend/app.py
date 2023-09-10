@@ -1,11 +1,10 @@
-from flask import Flask, session, jsonify, request
+from flask import Flask, session
 from flask_sqlalchemy import SQLAlchemy
-from datetime import timedelta
-import uuid
 from flask_cors import CORS
 from os import environ
 from dotenv import load_dotenv
 from config import config_by_name, FLASK_ENV
+from datetime import timedelta
 
 load_dotenv('.flaskenv')
 
@@ -30,6 +29,9 @@ staging_server_port = app.config["STAGING_SERVER_PORT"]
 session_cookie_secure = app.config["SESSION_COOKIE_SECURE"]
 
 db = SQLAlchemy(app)
+
+# Set expiration time for session data to clear if beforeunload fails
+app.permanent_session_lifetime = timedelta(days=1)
 
 
 # Define Tracker data table model
@@ -98,14 +100,3 @@ class TrackerData(db.Model):
         self.b4 = b4
         self.b5 = b5
         self.b6 = b6
-
-@app.before_request
-def before_request():
-    session.permanent = True
-    # Set expiration time for session data to clear if beforeunload fails
-    app.permanent_session_lifetime = timedelta(days=1)
-
-    # Generate a session id
-    if "sid" not in session:
-        # Generate a unique session id
-        session["sid"] = str(uuid.uuid4())

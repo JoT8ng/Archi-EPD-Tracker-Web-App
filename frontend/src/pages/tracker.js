@@ -6,6 +6,7 @@ import Barchart from '../components/barchart';
 import Piechart from '../components/piechart';
 import Barcharttwo from '../components/barchart2';
 import Piecharttwo from '../components/piechart2';
+import { useSessionContext } from '../context';
 
 
 // Create React Table
@@ -54,6 +55,7 @@ const Tracker = () => {
 
     // Code to handle form submission and send data to backend Flask database
     const [errorMessage, setErrorMessage] = useState('');
+    const sessionID = useSessionContext();
 
     const handleSubmit = async (event) => {
         // Prevent default form submission behaviour
@@ -61,11 +63,13 @@ const Tracker = () => {
 
         // Get form data
         const formData = new FormData(event.target);
+        formData.append("session_id", sessionID);
 
         // Make POST request to backend Flask API
         fetch(`${backendUrl}/tracker`, {
             method: 'POST',
             body: formData,
+            credentials: 'include',
         })
         .then((response) => response.json())
         .then((data) => {
@@ -92,8 +96,9 @@ const Tracker = () => {
 
     // Function to send request to backend server to clear session data once web app or browser is closed
     const clearSession = async () => {      
-        fetch(`${backendUrl}/clearsession`, {
+        fetch(`${backendUrl}/clearsession?session_id=${sessionID}`, {
             method: 'POST',
+            credentials: 'include',
         })
         .then(response => {
             console.log('Session data deleted successfully');
@@ -122,7 +127,10 @@ const Tracker = () => {
     const [tableData, setTableData] = useState([]);
 
     const fetchBackendData = () => {
-        fetch(`${backendUrl}/tracker`)
+        fetch(`${backendUrl}/tracker?session_id=${sessionID}`, {
+            method: 'GET',
+            credentials: 'include',
+        })
         .then(response=>response.json())
         .then(data => {
             setTableData(data);
@@ -133,7 +141,7 @@ const Tracker = () => {
     // When first loading page fetch backend data
     useEffect(() => {
         fetchBackendData();
-    }, [])
+    }, [sessionID])
 
     const handleDelete = async (row) => {
         // Get the data for the row
@@ -142,6 +150,7 @@ const Tracker = () => {
         fetch(`${backendUrl}/delete`, {
             method: 'POST',
             body: JSON.stringify(rowData),
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -186,7 +195,7 @@ const Tracker = () => {
                 <form className='form' action='/tracker' method='post' onSubmit={handleSubmit}>
                     <h1 className='tracker-title'>Input EPD Data</h1>
                     <p className='form-p'>
-                        All input data will be deleted once the page is refreshed or the web application is closed. 
+                        All input data will be deleted once the page is refreshed, the user leaves this page, or the web application is closed. 
                         In the event that the data is not deleted, the data will be cleared after one day.
                     </p>
                     <p className="error-message" color='red'>{errorMessage}</p>

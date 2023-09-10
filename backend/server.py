@@ -1,16 +1,46 @@
 from flask import Flask, render_template, request, session, jsonify
 from app import app, db, TrackerData
+import uuid
 
+
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    return response
+
+def get_create_session_id():
+    session.permanent = True
+    
+    # Generate a session id
+    if "sid" not in session:
+        # Generate a unique session id
+        session["sid"] = str(uuid.uuid4())
+        session_id = session["sid"]
+        print(session_id)
+        return session_id
+    
+    print(session_id)
+    return session_id
 
 @app.route("/")
 def home():
     return render_template("index.html")
 
+@app.route("/sessionid", methods=["GET"])
+def sessionid():
+    get_create_session_id()
+    session_id = session.get("sid")
+    print(session_id)
+    return jsonify({"session_id": session_id})
+
 @app.route("/tracker", methods=["GET", "POST"])
 def tracker():
     """Handler for the /racker route"""
+    session_id = request.args.get('session_id')
+
     # Access the data sent from the frontend
     if request.method == "POST":
+        session_id = request.form.get("session_id")
         material_category = request.form.get("material_category", default="None")
         product_name = request.form.get("product_name", default="None")
         material_name = request.form.get("material_name", default="None")
@@ -33,7 +63,7 @@ def tracker():
         print(request.form)
 
         tracker_data = TrackerData(
-            session["sid"], 
+            session_id=session_id, 
             material_category=material_category, 
             product_name=product_name, 
             material_name=material_name, 
@@ -63,7 +93,7 @@ def tracker():
             return {"error": error_message}, 400
 
     # Query the database to get the session data
-    session_data = TrackerData.query.filter_by(session_id=session["sid"]).all()
+    session_data = TrackerData.query.filter_by(session_id=session_id).all()
 
     # Convert session_data to a list of dictionaries to be sent to frontend
     result = []
@@ -96,11 +126,12 @@ def tracker():
         for key, value in data_dict.items():
             print(f"{key}: {value}")
 
-    return jsonify(result)
+    response = jsonify(result)
+    return response
 
 @app.route("/clearsession", methods=["POST"])
 def clear_session():
-    session_id = session.get("sid")
+    session_id = request.args.get('session_id')
     if session_id:
         TrackerData.query.filter_by(session_id=session_id).delete()
         db.session.commit()

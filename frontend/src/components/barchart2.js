@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Legend, Tooltip } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import '../pages/tracker.css';
+import { useSessionContext } from '../context';
 
 ChartJS.register(
     CategoryScale,
@@ -33,6 +34,7 @@ const Barcharttwo = () => {
     const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
     // Fetch backend database data
+    const sessionID = useSessionContext();
     const [graphData, setGraphData] = useState([]);
     const [selectedStage, setSelectedStage] = useState('');
 
@@ -54,11 +56,11 @@ const Barcharttwo = () => {
     const filteredKeys = columnKeys.filter(key => specificKeys.includes(key));
 
     useEffect(() => {
-        fetch(`${backendUrl}/tracker`)
+        fetch(`${backendUrl}/tracker?session_id=${sessionID}`)
         .then(response=>response.json())
         .then(data => setGraphData(data))
         .catch(error => console.error('Error fetching data:', error));
-    }, [])
+    }, [sessionID])
 
     // Format the data for the bar chart based on product name selection
     const prepareChartData = () => {
@@ -99,7 +101,7 @@ const Barcharttwo = () => {
 
     // Handle Update
      const handleUpdate = async event => {
-        fetch(`${backendUrl}/tracker`)
+        fetch(`${backendUrl}/tracker?session_id=${sessionID}`)
         .then(response=>response.json())
         .then(data => setGraphData(data))
         .catch(error => console.error('Error fetching data:', error));
