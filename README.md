@@ -1,6 +1,6 @@
-# Archi-EPD-Tracker-Web-App
+# EPData. Web App
 
-_Last update 13/09/2023_
+_Web App Last update 13/09/2023_
 
 **EPD****ata****.** is a work in progress free web tool that allows architects and other construction professionals to track and visualize embodied carbon emissions of various construction material options.
 
@@ -35,7 +35,7 @@ _Last update 13/09/2023_
 	```
 	pip install -r requirements.txt
 	```
-* Install package.json for React frontend (Version of npm ?)
+* Install package.json for React frontend (npm version 9.5.1)
 	```
 	npm install
 	```
@@ -73,7 +73,20 @@ exit()
 ```
 
 Create PostgreSQL Database:
-
+```
+flask shell
+```
+```
+App: server
+```
+```
+Instance: 'paste database directory'
+```
+```
+db.create_all()
+```
 
 Update requirements.txt:
+```
 pip freeze > requirements.txt
+```
