@@ -27,7 +27,7 @@ _Web App Last update 13/09/2023_
 * React Chart JS
 * React Tables
 * SQLAlchemy
-* Postgresql
+* PostgreSQL
 
 
 ## Dependencies:
@@ -78,11 +78,7 @@ flask shell
 ```
 ```
 App: server
-```
-```
 Instance: 'paste database directory'
-```
-```
 db.create_all()
 ```
 
