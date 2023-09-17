@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState, useContext } from 'react';
+import { createContext, useContext } from 'react';
 
 export const SessionContext = createContext(null);
 

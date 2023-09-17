@@ -10,7 +10,7 @@ const Lowbar = () => {
                 <NavLink exact to='/' className='bottomlogo'>
                     <span className='bottomlogo-text'>EPD<span style={{ fontStyle: 'normal', fontWeight: '400' }}>ata</span>.</span>
                 </NavLink>
-                <p>&#169; 2023 Jocelyn Tang. All Rights Reserved</p>
+                <p>&#169; 2023 EPData. All Rights Reserved</p>
             </div>
             <div className='links-container'>
                 <ul className='low-list'>
