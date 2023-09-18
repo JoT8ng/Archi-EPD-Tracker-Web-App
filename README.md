@@ -2,7 +2,7 @@
 
 _Web App Last update 13/09/2023_
 
-!(/images/README_HomePic.png)
+![Homepage](images/README_HomePic.png)
 
 **EPD****ata****.** is a work in progress free web tool that allows architects and other construction professionals to track and visualize embodied carbon emissions of various construction material options.
 
@@ -42,11 +42,11 @@ Data submitted in the form is sent via React's fetch api as a POST request to th
 
 Once the form is submitted, the table below will automatically update with the submitted information which is stored in a PostgreSQL database using Flask's SQLAlchemy. The backend takes the session ID sent from the frontend to query the database. The user has the option to add another row of EPD data by filling in the form again or deleting existing rows of information in the table. The web app uses the React tables library to generate the table.
 
-!(/images/TableShot1.jpg)
+![EPD Tracker Table](images/TableShot1.jpg)
 
 Once data has been input in the table, users can compare and analyze the data by creating bar and pie charts. Currently, charts can be created comparing the global warming potential of different stages of one product and comparing the global warming potential of a specific stage between multiple products. The web app uses the react-chartjs-2 library to generate the charts. The React chart components use the session ID to fetch the relevant data from the backend database as well.
 
-!(/images/GraphPic.jpg)
+![EPD Tracker Graphs](images/GraphPic.jpg)
 
 Since there is no login required for the web app, when a user refreshes or leaves the app the frontend sends a POST request to the backend to clear/delete all data with the user's session ID from the database.
 
