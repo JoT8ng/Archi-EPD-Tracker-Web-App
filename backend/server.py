@@ -1,11 +1,12 @@
 from flask import Flask, render_template, request, session, jsonify
-from app import app, db, TrackerData
+from app import app, db, TrackerData, csrf
 import uuid
 
 
 @app.after_request
 def after_request(response):
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,X-Csrftoken')
+    print("response:", response)
     return response
 
 def get_create_session_id():
@@ -35,8 +36,11 @@ def sessionid():
 
 @app.route("/tracker", methods=["GET", "POST"])
 def tracker():
-    """Handler for the /racker route"""
+    """Handler for the /racker route"""  
     session_id = request.args.get('session_id')
+
+    csrf_token = request.headers.get('X-Csrftoken')
+    print("CSRF Token from Request Headers:", csrf_token)
 
     # Access the data sent from the frontend
     if request.method == "POST":
@@ -130,6 +134,7 @@ def tracker():
     return response
 
 @app.route("/clearsession", methods=["POST"])
+@csrf.exempt
 def clear_session():
     session_id = request.args.get('session_id')
     if session_id:
@@ -140,6 +145,7 @@ def clear_session():
         return {"message": "Session data not found and deleted"}, 404
 
 @app.route("/delete", methods=["POST"])
+@csrf.exempt
 def delete():
     # Delete row data route
     if request.method == "POST":

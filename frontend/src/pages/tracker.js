@@ -61,6 +61,15 @@ const Tracker = () => {
         // Prevent default form submission behaviour
         event.preventDefault();
 
+        // Fetch the CSRF token from the backend
+        const csrfResponse = await fetch(`${backendUrl}/get_csrf_token`, {
+            method: 'POST',
+        })
+        const csrfData = await csrfResponse.json();
+        const backendCsrfToken = csrfData.csrf_token;
+
+        console.log("Expected CSRF Token:", backendCsrfToken);
+
         // Get form data
         const formData = new FormData(event.target);
         formData.append("session_id", sessionID);
@@ -70,6 +79,9 @@ const Tracker = () => {
             method: 'POST',
             body: formData,
             credentials: 'include',
+            headers: {
+                'X-CSRFToken': backendCsrfToken,
+            },
         })
         .then((response) => response.json())
         .then((data) => {

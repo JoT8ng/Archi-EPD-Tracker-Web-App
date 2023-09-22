@@ -1,10 +1,11 @@
-from flask import Flask, session
+from flask import Flask, session, jsonify, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from os import environ
 from dotenv import load_dotenv
 from config import config_by_name, FLASK_ENV
 from datetime import timedelta
+from flask_wtf.csrf import generate_csrf, CSRFProtect, CSRFError
 
 load_dotenv('.flaskenv')
 
@@ -14,7 +15,10 @@ print(f"Running with config: {FLASK_ENV}")
 
 cors_origins = app.config["CORS_ORIGINS"]
 cors_supports_credentials = app.config["CORS_SUPPORTS_CREDENTIALS"]
-CORS(app, origins=cors_origins, methods=["GET", "POST"], supports_credentials=cors_supports_credentials)
+cors_allow_headers = app.config["CORS_ALLOW_HEADERS"]
+CORS(app, origins=cors_origins, methods=["GET", "POST"], supports_credentials=cors_supports_credentials, allow_headers=cors_allow_headers)
+
+csrf = CSRFProtect(app)
 
 # General Config
 app.secret_key = environ.get("SECRET_KEY")
@@ -100,3 +104,20 @@ class TrackerData(db.Model):
         self.b4 = b4
         self.b5 = b5
         self.b6 = b6
+
+@app.route('/get_csrf_token', methods=['POST'])
+@csrf.exempt
+def get_csrf_token():
+    token = generate_csrf()
+
+    # Log the CSRF token to the console
+    print("CSRF Token:", token)
+
+    # Log the request headers
+    request_headers = dict(request.headers)
+    print("Request Headers:", request_headers)
+    return jsonify({'csrf_token': token})
+
+@app.errorhandler(CSRFError)
+def handle_csrf_error(e):
+    return render_template('csrf_error.html', reason=e.description), 400
