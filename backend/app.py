@@ -5,6 +5,8 @@ from os import environ
 from dotenv import load_dotenv
 from config import config_by_name, FLASK_ENV
 from datetime import timedelta
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 load_dotenv('.flaskenv')
 
@@ -29,6 +31,12 @@ staging_server_port = app.config["STAGING_SERVER_PORT"]
 session_cookie_secure = app.config["SESSION_COOKIE_SECURE"]
 
 db = SQLAlchemy(app)
+
+limiter = Limiter(
+    get_remote_address,
+    app=app,
+    default_limits=["200 per day", "50 per hour"]
+)
 
 # Set expiration time for session data to clear if beforeunload fails
 app.permanent_session_lifetime = timedelta(days=1)
