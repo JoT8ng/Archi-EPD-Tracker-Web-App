@@ -17,6 +17,8 @@ const Lowbar = () => {
                     <NavLink exact to='/' className='low-text'>Home</NavLink>
                     <NavLink to='/tracker' className='low-text'>Tracker</NavLink>
                     <NavLink to='/contact' className='low-text'>Contact</NavLink>
+                    <NavLink to='/terms' className='low-text'>Terms and Conditions</NavLink>
+                    <NavLink to='/privacy' className='low-text'>Privacy Policy</NavLink>
                 </ul>
             </div>
             <div className='contact-container'>

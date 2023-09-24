@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.terms-page {
+    background: rgb(255,255,255);
+}
+
+.termspage-container {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    margin: auto;
+    align-items: flex-start;
+    padding: 150px;
+}
+
+.terms-title {
+    color: black;
+    padding-bottom: 25px;
+    text-align: center;
+}
+
+.terms-title2 {
+    color: black;
+    padding-bottom: 25px;
+    text-align: left;
+}
+
+.terms-text {
+    color: black;
+    padding-bottom: 25px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    text-align: left;
+}
+
+@media (max-width: 1050px) {
+    .termspage-container {
+        padding: 25px;
+        height: 100vh;
+        justify-content: center;
+    }
+}
