@@ -8,6 +8,7 @@ import Lowbar from './components/lowbar';
 import './App.css';
 import TopButton from './components/topbutton';
 import Terms from './pages/terms';
+import Privacy from './pages/privacy';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path='/tracker' element={<Tracker />} />
         <Route path='/contact' element={<Contact />} />
         <Route path='/terms' element={<Terms />} />
+        <Route path='/privacy' element={<Privacy />} />
       </Routes>
       <TopButton />
       <Lowbar />
