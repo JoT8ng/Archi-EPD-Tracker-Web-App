@@ -35,7 +35,7 @@ db = SQLAlchemy(app)
 limiter = Limiter(
     get_remote_address,
     app=app,
-    default_limits=["200 per day", "50 per hour"]
+    default_limits=["9000 per day", "5000 per hour"]
 )
 
 # Set expiration time for session data to clear if beforeunload fails
