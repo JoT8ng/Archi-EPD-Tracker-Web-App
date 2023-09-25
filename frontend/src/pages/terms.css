@@ -43,7 +43,6 @@
 @media (max-width: 1050px) {
     .termspage-container {
         padding: 25px;
-        height: 100vh;
         justify-content: center;
     }
 }
