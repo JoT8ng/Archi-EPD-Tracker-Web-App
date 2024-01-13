@@ -37,6 +37,15 @@ const Tracker = () => {
     }
 
     const handleSubmit = async (formData) => {
+        if (sessionID === null) {
+            setErrorMessage('Connecting to backend server... Please wait a few minutes and try again later')
+      		setTimeout(() => {
+        		setErrorMessage(null)
+      		}, 10000)
+      		setMessage(false)
+            return;
+        }
+
         fetch(`${backendUrl}/tracker`, {
             method: 'POST',
             body: formData,
