@@ -7,14 +7,14 @@ const Lowbar = () => {
     return(
         <nav className='lowbar'>
             <div className='logo-container'>
-                <NavLink exact to='/' className='bottomlogo'>
+                <NavLink to='/' className='bottomlogo'>
                     <span className='bottomlogo-text'>EPD<span style={{ fontStyle: 'normal', fontWeight: '400' }}>ata</span>.</span>
                 </NavLink>
                 <p>&#169; 2023 EPData. All Rights Reserved</p>
             </div>
             <div className='links-container'>
                 <ul className='low-list'>
-                    <NavLink exact to='/' className='low-text'>Home</NavLink>
+                    <NavLink to='/' className='low-text'>Home</NavLink>
                     <NavLink to='/tracker' className='low-text'>Tracker</NavLink>
                     <NavLink to='/contact' className='low-text'>Contact</NavLink>
                     <NavLink to='/terms' className='low-text'>Terms and Conditions</NavLink>
