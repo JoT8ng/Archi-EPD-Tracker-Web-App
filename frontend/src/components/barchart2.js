@@ -3,6 +3,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Legend
 import { Bar } from 'react-chartjs-2';
 import '../pages/tracker.css';
 import { useSessionContext } from '../context';
+import trackerService from '../services/TrackerServices';
 
 ChartJS.register(
     CategoryScale,
@@ -31,9 +32,6 @@ export const options = {
   };
 
 const Barcharttwo = () => {
-    const backendUrl = process.env.REACT_APP_BACKEND_URL;
-
-    // Fetch backend database data
     const sessionID = useSessionContext();
     const [graphData, setGraphData] = useState([]);
     const [selectedStage, setSelectedStage] = useState('');
@@ -56,9 +54,7 @@ const Barcharttwo = () => {
     const filteredKeys = columnKeys.filter(key => specificKeys.includes(key));
 
     useEffect(() => {
-        fetch(`${backendUrl}/tracker?session_id=${sessionID}`)
-        .then(response=>response.json())
-        .then(data => setGraphData(data))
+        trackerService.getAll(sessionID).then(data => setGraphData(data))
         .catch(error => console.error('Error fetching data:', error));
     }, [sessionID])
 
@@ -101,9 +97,7 @@ const Barcharttwo = () => {
 
     // Handle Update
      const handleUpdate = async event => {
-        fetch(`${backendUrl}/tracker?session_id=${sessionID}`)
-        .then(response=>response.json())
-        .then(data => setGraphData(data))
+        trackerService.getAll(sessionID).then(data => setGraphData(data))
         .catch(error => console.error('Error fetching data:', error));
     };
     

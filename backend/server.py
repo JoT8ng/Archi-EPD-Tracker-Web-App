@@ -139,10 +139,10 @@ def clear_session():
     else:
         return {"message": "Session data not found and deleted"}, 404
 
-@app.route("/delete", methods=["POST"])
+@app.route("/delete", methods=["DELETE"])
 def delete():
     # Delete row data route
-    if request.method == "POST":
+    if request.method == "DELETE":
         try:
             # Get JSON data from the frontend
             data = request.get_json()

@@ -1,6 +1,6 @@
 # EPData. Web App
 
-_Web App Last update 13/01/2024_
+_Web App Last update 20/01/2024_
 
 ![Homepage](images/README_HomePic.png)
 
@@ -30,6 +30,7 @@ There is increasing demand in the construction industry to source sustainable ma
 * React Tables
 * SQLAlchemy
 * PostgreSQL
+* Axios
 
 ## How this app works
 This web app is created using a React framework as the frontend and Flask framework as the backend. The frontend and backend exist on different domains and are subject to CORS/cross origin resource sharing.
@@ -38,7 +39,7 @@ When the web app is first loaded by the user, the frontend uses React Context to
 
 On the tracker page, the user is presented with a form that requires them to input the EPD data of a specific product. The form is validated on both the frontend and backend. Certain inputs require numerical data up to two decimal places and others only accept strings up to a certain length. If the user does not fill in parts of the form, they will be presented with an error stating that they must fill it in.
 
-Data submitted in the form is sent via React's fetch api as a POST request to the Flask backend. The session ID stored in React Context is also sent with the form's data and stored in the database.
+Data submitted in the form is sent via Axios as a POST request to the Flask backend. The session ID stored in React Context is also sent with the form's data and stored in the database.
 
 Once the form is submitted, the table below will automatically update with the submitted information which is stored in a PostgreSQL database using Flask's SQLAlchemy. The backend takes the session ID sent from the frontend to query the database. The user has the option to add another row of EPD data by filling in the form again or deleting existing rows of information in the table. The web app uses the React tables library to generate the table.
 

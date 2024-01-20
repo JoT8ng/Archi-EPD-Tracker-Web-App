@@ -16,7 +16,7 @@ print(f"Running with config: {FLASK_ENV}")
 
 cors_origins = app.config["CORS_ORIGINS"]
 cors_supports_credentials = app.config["CORS_SUPPORTS_CREDENTIALS"]
-CORS(app, origins=cors_origins, methods=["GET", "POST"], supports_credentials=cors_supports_credentials)
+CORS(app, origins=cors_origins, methods=["GET", "POST", "DELETE"], supports_credentials=cors_supports_credentials)
 
 # General Config
 app.secret_key = environ.get("SECRET_KEY")
