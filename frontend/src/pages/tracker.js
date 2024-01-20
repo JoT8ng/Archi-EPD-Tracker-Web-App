@@ -9,12 +9,15 @@ import Notification from '../components/Notification';
 import { useSessionContext } from '../context';
 import TrackerForm from '../components/TrackerForm';
 import TrackerTable from '../components/TrackerTable';
+import Toggle from '../components/Toggle';
 
 const Tracker = () => {
     const backendUrl = process.env.REACT_APP_BACKEND_URL;
     const [tableData, setTableData] = useState([]);
     const [errorMessage, setErrorMessage] = useState(null);
     const [message, setMessage] = useState(false);
+    const [isExpandedOne, setIsExpandedOne] = useState(false);
+    const [isExpandedTwo, setIsExpandedTwo] = useState(false);
     const sessionID = useSessionContext();
 
     const fetchBackendData = () => {
@@ -154,22 +157,42 @@ const Tracker = () => {
             <div className='overallchart-container'>
                 <h1 className='tracker-title'>Create Graphs</h1>
                 <div className='chartcontainer-one'>
-                    <h3>Compare GWP of Different Construction Stages</h3>
-                    <div className='barchart-container'>
-                        <Barchart />
+                    <div className='togglecontainer'>
+                        <h3>Compare GWP of Different Construction Stages</h3>
+                        <Toggle
+                        isToggled={isExpandedOne}
+                        onClick={() => setIsExpandedOne(!isExpandedOne)}
+                        />
                     </div>
-                    <div className='pichart-container'>
-                        <Piechart />
-                    </div>
+                    {isExpandedOne && (
+                        <div>
+                            <div className='barchart-container'>
+                                <Barchart />
+                            </div>
+                            <div className='pichart-container'>
+                                <Piechart />
+                            </div>
+                        </div>
+                    )}
                 </div>
                 <div className='chartcontainer-two'>
-                    <h3>Compare GWP of Different Products</h3>
-                    <div className='barcharttwo-container'>
-                        <Barcharttwo />
+                    <div className='togglecontainer'>
+                        <h3>Compare GWP of Different Products</h3>
+                        <Toggle
+                        isToggled={isExpandedTwo}
+                        onClick={() => setIsExpandedTwo(!isExpandedTwo)}
+                        />
                     </div>
-                    <div className='piecharttwo-container'>
-                        <Piecharttwo />
-                    </div>
+                    {isExpandedTwo && (
+                        <div>
+                            <div className='barcharttwo-container'>
+                                <Barcharttwo />
+                            </div>
+                            <div className='piecharttwo-container'>
+                                <Piecharttwo />
+                            </div>
+                        </div>
+		            )}
                 </div>
             </div>
 

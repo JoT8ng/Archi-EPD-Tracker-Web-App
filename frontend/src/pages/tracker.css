@@ -217,3 +217,8 @@ tbody td:hover:before {
     margin: auto;
     width: 80%;
 }
+
+.togglecontainer {
+    display: flex;
+    justify-content: space-between;
+}
