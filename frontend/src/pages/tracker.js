@@ -90,7 +90,7 @@ const Tracker = () => {
 	}
 
 	// Function to send request to backend server to clear session data once web app or browser is closed
-	const clearSession = async () => {
+	const clearSession = async (sessionID) => {
 		try {
 			await trackerService.clear(sessionID)
 		} catch (error) {
@@ -102,18 +102,24 @@ const Tracker = () => {
 		// When first loading page fetch backend data
 		fetchBackendData()
 
-		// Add 'beforeunload' event listener
-		const handleBeforeUnload = () => {
-			clearSession()
+		const handleUnload = () => {
+			clearSession(sessionID)
 		}
+		const handleBeforeUnload = (event) => {
+			event.preventDefault()
+			event.returnValue = 'Are you sure you want to leave? Any changes will be lost.'
 
+			setTimeout(() => {
+				clearSession(sessionID)
+			}, 0)
+		}
+		window.addEventListener('unload', handleUnload)
 		window.addEventListener('beforeunload', handleBeforeUnload)
-
-		// Clean event listener when component unmounts
 		return () => {
+			window.removeEventListener('unload', handleUnload)
 			window.removeEventListener('beforeunload', handleBeforeUnload)
 		}
-	}, [])
+	}, [sessionID])
 
 	return (
 		<div className='page-container'>
