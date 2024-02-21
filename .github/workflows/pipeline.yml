@@ -1,0 +1,90 @@
+name: Deployment pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+
+jobs:
+
+  simple_deployment_pipeline:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v4
+
+      # Frontend pipeline
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm install
+      - name: Lint frontend
+        working-directory: frontend
+        run: npm run lint
+      - name: Build frontend
+        working-directory: frontend
+        run: npm run build
+      - name: Test frontend
+        working-directory: frontend
+        run: |
+            echo "Hello run tests"
+      - name: e2e tests frontend
+        working-directory: frontend
+        run: |
+            echo "Hello run cypress e2e tests"
+
+      # Backend pipeline
+      - name: Install backend dependencies
+        working-directory: backend
+        run: |
+            pip install -r requirements.txt
+      - name: Lint backend
+        working-directory: backend
+        run: |
+            echo "Hello run backend lint"
+      - name: Test backend
+        working-directory: backend
+        run: |
+            echo "Hello run tests"
+
+      # Deployment pipeline
+      - name: Deploy
+        if: ${{ github.event_name == 'push' }}
+        run: |
+          echo "deployment"
+
+  tag_release:
+    needs: [simple_deployment_pipeline]
+    runs-on: ubuntu-20.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          node-version: '20'
+      - name: Bump version and push tag
+        if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
+        uses: anothrNick/github-tag-action@1.64.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
+
+  discord_notify:
+    needs: [simple_deployment_pipeline]
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Test Success
+        uses: rjstone/discord-webhook-notify@v1.0.4
+        if: success()
+        with:
+          severity: info
+          details: Test Succeeded!
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: Test Failed
+        uses: rjstone/discord-webhook-notify@v1.0.4
+        if: failure()
+        with:
+          severity: error
+          details: Test Failed!
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
