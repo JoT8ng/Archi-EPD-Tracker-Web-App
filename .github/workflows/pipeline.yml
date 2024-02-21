@@ -49,10 +49,12 @@ jobs:
             echo "Hello run tests"
 
       # Deployment pipeline
-      - name: Deploy
+      - name: Deploy Frontend
         if: ${{ github.event_name == 'push' }}
-        run: |
-          echo "deployment"
+        run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_FRONTEND_SERVICE_ID }}?key=${{ secrets.RENDER_FRONTEND_API_KEY }}
+      - name: Deploy Backend
+        if: ${{ github.event_name == 'push' }}
+        run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_BACKEND_SERVICE_ID }}?key=${{ secrets.RENDER_BACKEND_API_KEY }}
 
   tag_release:
     needs: [simple_deployment_pipeline]
@@ -61,8 +63,6 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
-        with:
-          node-version: '20'
       - name: Bump version and push tag
         if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
         uses: anothrNick/github-tag-action@1.64.0
