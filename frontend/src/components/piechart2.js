@@ -113,7 +113,7 @@ const Piecharttwo = () => {
 					))}
 				</select>
 			</div>
-			<Pie width={400} height={400} data={newChartData} options={options} />
+			<Pie data-testid='piechart' width={400} height={400} data={newChartData} options={options} />
 		</div>
 	)
 }

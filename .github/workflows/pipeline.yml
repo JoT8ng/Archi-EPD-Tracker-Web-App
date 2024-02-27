@@ -27,8 +27,7 @@ jobs:
         run: npm run build
       - name: Test frontend
         working-directory: frontend
-        run: |
-            echo "Hello run tests"
+        run: npm run test
       - name: e2e tests frontend
         working-directory: frontend
         run: |

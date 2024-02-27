@@ -2,7 +2,7 @@ import { useTable } from 'react-table'
 import '../pages/tracker.css'
 
 // Create React Table
-const DataTable = ({ columns, data, handleDelete }) => {
+export const DataTable = ({ columns, data, handleDelete }) => {
 	const {
 		getTableProps,
 		getTableBodyProps,
