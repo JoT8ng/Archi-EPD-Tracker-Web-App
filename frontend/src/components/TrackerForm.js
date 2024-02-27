@@ -22,7 +22,7 @@ const TrackerForm = ({ handleSubmit }) => {
 
 	return (
 		<div className='form-container'>
-			<form className='form' action='/tracker' method='post' onSubmit={addEntry}>
+			<form data-testid='trackerform' className='form' action='/tracker' method='post' onSubmit={addEntry}>
 				<div className='togglecontainer'>
 					<h1 className='tracker-title'>Input EPD Data</h1>
 					<Toggle
@@ -38,7 +38,7 @@ const TrackerForm = ({ handleSubmit }) => {
 						</p>
 						<div className='input1'>
 							<div className='input-container'>
-								<label>Material Category</label>
+								<label htmlFor='material_category'>Material Category</label>
 								<select id='material_category' name='material_category'>
 									<option value='Concrete'>Concrete</option>
 									<option value='Wood'>Wood</option>
@@ -76,7 +76,7 @@ const TrackerForm = ({ handleSubmit }) => {
 									<input id='value1' name='value1' type='number' step='0.01' placeholder='Number Value' required></input>
 								</div>
 								<div className='input-group2'>
-									<label>Unit 1</label>
+									<label htmlFor='unit1'>Unit 1</label>
 									<select id='unit1' name='unit1'>
 										<option value='kg'>kg</option>
 										<option value='m2'>m2</option>
@@ -87,7 +87,7 @@ const TrackerForm = ({ handleSubmit }) => {
 									<input id='value2' name='value2' type='number' step='0.01' placeholder='Number Value' required></input>
 								</div>
 								<div className='input-group2'>
-									<label>Unit 2</label>
+									<label htmlFor='unit2'>Unit 2</label>
 									<select id='unit2' name='unit2'>
 										<option value='kg'>kg</option>
 										<option value='m2'>m2</option>

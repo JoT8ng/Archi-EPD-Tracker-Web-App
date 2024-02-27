@@ -115,7 +115,7 @@ const Barcharttwo = () => {
 					))}
 				</select>
 			</div>
-			<Bar width={700} height={700} data={newChartData} options={options} />
+			<Bar data-testid='barchart' width={700} height={700} data={newChartData} options={options} />
 		</div>
 	)
 }
