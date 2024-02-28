@@ -137,6 +137,7 @@ const Tracker = () => {
 					<div className='togglecontainer'>
 						<h3>Compare GWP of Different Construction Stages</h3>
 						<Toggle
+							id='toggle1'
 							isToggled={isExpandedOne}
 							onClick={() => setIsExpandedOne(!isExpandedOne)}
 						/>
@@ -156,6 +157,7 @@ const Tracker = () => {
 					<div className='togglecontainer'>
 						<h3>Compare GWP of Different Products</h3>
 						<Toggle
+							id='toggle2'
 							isToggled={isExpandedTwo}
 							onClick={() => setIsExpandedTwo(!isExpandedTwo)}
 						/>

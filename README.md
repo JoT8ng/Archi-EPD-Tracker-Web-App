@@ -31,6 +31,8 @@ There is increasing demand in the construction industry to source sustainable ma
 * SQLAlchemy
 * PostgreSQL
 * Axios
+* Jest for frontend testing
+* Cypress for frontend e2e testing
 
 ## How this app works
 This web app is created using a React framework as the frontend and Flask framework as the backend. The frontend and backend exist on different domains and are subject to CORS/cross origin resource sharing.

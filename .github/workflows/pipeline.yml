@@ -28,16 +28,15 @@ jobs:
       - name: Test frontend
         working-directory: frontend
         run: npm run test
-      - name: e2e tests frontend
-        working-directory: frontend
-        run: |
-            echo "Hello run cypress e2e tests"
 
       # Backend pipeline
       - name: Install backend dependencies
         working-directory: backend
         run: |
             pip install -r requirements.txt
+            python -m env env
+            ./env/scripts/activate
+            flask run
       - name: Lint backend
         working-directory: backend
         run: |
@@ -46,6 +45,15 @@ jobs:
         working-directory: backend
         run: |
             echo "Hello run tests"
+
+      # Cypress e2e tests
+      - name: e2e tests
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: frontend
+          command: npm run test:e2e
+          start: npm run start
+          wait-on: http://localhost:5000 
 
       # Deployment pipeline
       - name: Deploy Frontend
