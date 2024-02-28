@@ -49,8 +49,7 @@ jobs:
         with:
           working-directory: frontend
           command: npm run test:e2e
-          start: npm run start-both
-          wait-on: http://localhost:5000 
+          start: npm run start
 
       # Deployment pipeline
       - name: Deploy Frontend
