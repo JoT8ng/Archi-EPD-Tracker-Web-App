@@ -28,7 +28,8 @@ module.exports = {
 	},
 	'plugins': [
 		'react',
-		'jest'
+		'jest',
+		'cypress'
 	],
 	'rules': {
 		'indent': [
