@@ -30,6 +30,15 @@ jobs:
         run: npm run test
 
       # Backend pipeline
+      - name: Setup python version
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11.4'
+      - name: Create and start virtual environment
+        working-directory: backend
+        run: |
+            python3 -m venv venv
+            source venv/bin/activate
       - name: Install backend dependencies
         working-directory: backend
         run: |
@@ -42,11 +51,9 @@ jobs:
         working-directory: backend
         run: |
             echo "Hello run tests"
-      - name: Start flask backend
+      - name: Start Flask backend
         working-directory: backend
         run: |
-            python -m venv venv
-            ./venv/scripts/activate
             flask run
 
       # Cypress e2e tests
