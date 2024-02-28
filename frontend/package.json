@@ -24,7 +24,9 @@
     "eject": "react-scripts eject",
     "lint": "eslint src",
     "cypress:open": "cypress open",
-    "test:e2e": "cypress run"
+    "test:e2e": "cypress run",
+    "start-both": "concurrently \"npm run start\" \"npm run start-backend\"",
+    "start-backend": "cd ../backend && python -m venv venv && source env/bin/activate && flask run"
   },
   "jest": {
     "testEnvironment": "jsdom",
@@ -64,6 +66,7 @@
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@types/react-router-dom": "^5.3.3",
+    "concurrently": "^8.2.2",
     "cypress": "^13.6.6",
     "eslint": "^8.56.0",
     "eslint-plugin-cypress": "^2.15.1",
