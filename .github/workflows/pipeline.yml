@@ -34,9 +34,6 @@ jobs:
         working-directory: backend
         run: |
             pip install -r requirements.txt
-            python -m env env
-            ./env/scripts/activate
-            flask run
       - name: Lint backend
         working-directory: backend
         run: |
