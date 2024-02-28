@@ -42,6 +42,7 @@ jobs:
       - name: Install backend dependencies
         working-directory: backend
         run: |
+            pip install --upgrade pip
             pip install -r requirements.txt
       - name: Lint backend
         working-directory: backend
