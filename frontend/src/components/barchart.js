@@ -125,11 +125,11 @@ const Barchart = () => {
 	return(
 		<div style={{ width: '80%', margin: 'auto' }}>
 			<div className='input3'>
-				<button className='button' onClick={handleUpdate}>Refresh Chart</button>
+				<button id='barchart-refresh' className='button' onClick={handleUpdate}>Refresh Chart</button>
 			</div>
 			<div className='input-container'>
 				<label>Select Product</label>
-				<select onChange={handleProductSelect} value={selectedProduct}>
+				<select id='barchart-select' onChange={handleProductSelect} value={selectedProduct}>
 					<option value="">Product Name</option>
 					{Array.from(new Set(graphData.map(item => item.product_name))).map((product, index) => (
 						<option key={index} value={product}>

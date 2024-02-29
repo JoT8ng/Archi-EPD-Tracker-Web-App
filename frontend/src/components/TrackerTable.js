@@ -29,7 +29,7 @@ export const DataTable = ({ columns, data, handleDelete }) => {
 					return (
 						<tr {...row.getRowProps()}>
 							<td>
-								<button onClick={() => handleDelete(row)}>Delete</button>
+								<button id='delete-button' onClick={() => handleDelete(row)}>Delete</button>
 							</td>
 							{row.cells.map(cell => {
 								return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>

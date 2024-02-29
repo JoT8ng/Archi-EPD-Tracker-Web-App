@@ -28,16 +28,30 @@ jobs:
       - name: Test frontend
         working-directory: frontend
         run: npm run test
-      - name: e2e tests frontend
-        working-directory: frontend
-        run: |
-            echo "Hello run cypress e2e tests"
 
       # Backend pipeline
+      - name: Setup python version
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11.4'
+      - name: Create and start virtual environment
+        working-directory: backend
+        run: |
+            python3 -m venv venv
+            source venv/bin/activate
       - name: Install backend dependencies
         working-directory: backend
         run: |
             pip install -r requirements.txt
+      - name: Set up backend ENV
+        run: |
+            echo "FLASK_APP: $FLASK_APP"
+            echo "FLASK_ENV: $FLASK_ENV"
+            echo "SECRET_KEY: $SECRET_KEY"
+        env:
+          FLASK_APP: ${{ secrets.FLASK_APP }}
+          FLASK_ENV: ${{ secrets.FLASK_ENV }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
       - name: Lint backend
         working-directory: backend
         run: |

@@ -138,7 +138,7 @@ const TrackerForm = ({ handleSubmit }) => {
 							</div>
 						</div>
 						<div className='input3'>
-							<button className='button' type='submit'>Add</button>
+							<button id='add-button' className='button' type='submit'>Add</button>
 						</div>
 					</div>
 				)}
