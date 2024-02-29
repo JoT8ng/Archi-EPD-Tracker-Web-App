@@ -43,6 +43,15 @@ jobs:
         working-directory: backend
         run: |
             pip install -r requirements.txt
+      - name: Set up backend ENV
+        run: |
+            echo "FLASK_APP: $FLASK_APP"
+            echo "FLASK_ENV: $FLASK_ENV"
+            echo "SECRET_KEY: $SECRET_KEY"
+        env:
+          FLASK_APP: ${{ secrets.FLASK_APP }}
+          FLASK_ENV: ${{ secrets.FLASK_ENV }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
       - name: Lint backend
         working-directory: backend
         run: |
@@ -51,10 +60,6 @@ jobs:
         working-directory: backend
         run: |
             echo "Hello run tests"
-      - name: Start Flask backend
-        working-directory: backend
-        run: |
-            flask run
 
       # Cypress e2e tests
       - name: e2e tests
@@ -62,7 +67,7 @@ jobs:
         with:
           working-directory: frontend
           command: npm run test:e2e
-          start: npm run start
+          start: npm run start-both
           wait-on: http://127.0.0.1:5000
 
       # Deployment pipeline

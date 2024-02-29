@@ -1,6 +1,6 @@
 # EPData. Web App
 
-_Web App Last update 20/01/2024_
+_Web App Last update 29/02/2024_
 
 ![Homepage](images/README_HomePic.png)
 
