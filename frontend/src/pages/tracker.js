@@ -19,16 +19,18 @@ const Tracker = () => {
 	const [isExpandedTwo, setIsExpandedTwo] = useState(false)
 	const sessionID = useSessionContext()
 
-	const fetchBackendData = () => {
-		trackerService.getAll(sessionID).then(data => setTableData(data))
-			.catch(error => {
-				console.error('Error fetching data:', error)
-				setErrorMessage('Error fetching data from backend')
-				setTimeout(() => {
-					setErrorMessage(null)
-				}, 10000)
-				setMessage(false)
-			})
+	const fetchBackendData = async () => {
+		try {
+			const data = await trackerService.getAll(sessionID)
+			setTableData(data)
+		} catch (error) {
+			console.error('Error fetching data:', error)
+			setErrorMessage('Error fetching data from backend')
+			setTimeout(() => {
+				setErrorMessage(null)
+			}, 10000)
+			setMessage(false)
+		}
 	}
 
 	const handleSubmit = async (formData) => {
@@ -44,22 +46,15 @@ const Tracker = () => {
 		try {
 			const data = await trackerService.add(formData)
 			console.log(data)
-			if (data.error) {
-				console.error('Error:', data.error)
-				setErrorMessage('Error submitting data to backend')
-				setTimeout(() => {
-					setErrorMessage(null)
-				}, 10000)
-				setMessage(false)
-			} else {
-				setErrorMessage('Data submitted successfully!')
-				setTimeout(() => {
-					setErrorMessage(null)
-				}, 10000)
-				setMessage(true)
-				// Fetch updated backend data
-				fetchBackendData()
-			}
+
+			setErrorMessage('Data submitted successfully!')
+			setTimeout(() => {
+				setErrorMessage(null)
+			}, 10000)
+			setMessage(true)
+
+			// Fetch updated backend data
+			fetchBackendData()
 		} catch (error) {
 			console.error('Error submitting data to backend:', error)
 			setErrorMessage('Error submitting data to backend')
