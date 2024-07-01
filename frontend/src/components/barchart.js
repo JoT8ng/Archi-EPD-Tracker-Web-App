@@ -4,7 +4,7 @@ import { Bar } from 'react-chartjs-2'
 import '../pages/tracker.css'
 import { useSessionContext } from '../context'
 import trackerService from '../services/TrackerServices'
-import { chartOptions, compareStageData, colorOne, labelsOne } from '../utils/middleware'
+import { chartOptions, compareStageData, colorOne, labelsOne, handleChartSelect, handleChartUpdate } from '../utils/middleware'
 
 ChartJS.register(
 	CategoryScale,
@@ -19,7 +19,7 @@ ChartJS.register(
 const Barchart = () => {
 	const sessionID = useSessionContext()
 	const [graphData, setGraphData] = useState([])
-	const [selectedProduct, setSelectedProduct] = useState('')
+	const [selected, setSelected] = useState('')
 
 	useEffect(() => {
 		trackerService.getAll(sessionID).then(data => setGraphData(data))
@@ -27,7 +27,7 @@ const Barchart = () => {
 	}, [sessionID])
 
 	// Call prepare chart data function
-	const chartData = compareStageData(graphData, selectedProduct)
+	const chartData = compareStageData(graphData, selected)
 
 	const newChartData = {
 		labels: labelsOne,
@@ -52,25 +52,14 @@ const Barchart = () => {
 		],
 	}
 
-	// Handle product name selection
-	const handleProductSelect = event => {
-		setSelectedProduct(event.target.value)
-	}
-
-	// Handle Update
-	const handleUpdate = async () => {
-		trackerService.getAll(sessionID).then(data => setGraphData(data))
-			.catch(error => console.error('Error fetching data:', error))
-	}
-
 	return(
 		<div style={{ width: '80%', margin: 'auto' }}>
 			<div className='input3'>
-				<button id='barchart-refresh' className='button' onClick={handleUpdate}>Refresh Chart</button>
+				<button id='barchart-refresh' className='button' onClick={() => handleChartUpdate(sessionID, setGraphData)}>Refresh Chart</button>
 			</div>
 			<div className='input-container'>
 				<label>Select Product</label>
-				<select id='barchart-select' onChange={handleProductSelect} value={selectedProduct}>
+				<select id='barchart-select' onChange={(e) => handleChartSelect(e, setSelected)} value={selected}>
 					<option value="">Product Name</option>
 					{Array.from(new Set(graphData.map(item => item.product_name))).map((product, index) => (
 						<option key={index} value={product}>
