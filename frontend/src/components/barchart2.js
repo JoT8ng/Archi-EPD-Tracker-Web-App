@@ -4,6 +4,7 @@ import { Bar } from 'react-chartjs-2'
 import '../pages/tracker.css'
 import { useSessionContext } from '../context'
 import trackerService from '../services/TrackerServices'
+import { chartOptions, getColumnKeys, getFilteredKeys, compareProductData } from '../utils/middleware'
 
 ChartJS.register(
 	CategoryScale,
@@ -14,70 +15,24 @@ ChartJS.register(
 	Tooltip
 )
 
-export const options = {
-	responsive: true,
-	plugins: {
-		legend: {
-			position: 'top',
-		},
-		title: {
-			display: true,
-			text: 'Compare Global Warming Potentials (GWP) of Different Products',
-		},
-		tooltips: {
-			mode: 'label',
-			intersect: false
-		},
-	},
-}
-
 const Barcharttwo = () => {
 	const sessionID = useSessionContext()
 	const [graphData, setGraphData] = useState([])
 	const [selectedStage, setSelectedStage] = useState('')
-
-	// Generate random colors function
-	const dynamicColors = () => {
-		const r = Math.floor(Math.random() * 255)
-		const g = Math.floor(Math.random() * 255)
-		const b = Math.floor(Math.random() * 255)
-		return `rgba(${r}, ${g}, ${b}, 0.6)`
-	}
-
-	// List of specific keys to be shown as options
-	const specificKeys = ['a1to3', 'a4', 'a5', 'b1', 'b2', 'b3', 'b4', 'b5', 'b6']
-
-	// Get the available column keys from the first item in the data array
-	const columnKeys = graphData.length > 0 ? Object.keys(graphData[0]) : []
-
-	// Filter columnKeys based on the specificKeys array
-	const filteredKeys = columnKeys.filter(key => specificKeys.includes(key))
 
 	useEffect(() => {
 		trackerService.getAll(sessionID).then(data => setGraphData(data))
 			.catch(error => console.error('Error fetching data:', error))
 	}, [sessionID])
 
-	// Format the data for the bar chart based on product name selection
-	const prepareChartData = () => {
-		// Only continue with function if graphData is not null
-		if (!graphData || graphData.length === 0 || !selectedStage) return null
+	// Get the available column keys from the first item in the data array
+	const columnKeys = getColumnKeys(graphData)
 
-		// Filter backend graphData based on selected construction stage
-		const filteredData = graphData.filter(item => item[selectedStage])
-
-		// Extract values for the selected construction stage
-		const chartData = filteredData.map(item => ({
-			label: item.product_name,
-			value: item[selectedStage],
-			backgroundColor: dynamicColors(),
-		}))
-
-		return chartData
-	}
+	// Filter columnKeys based on the specificKeys array
+	const filteredKeys = getFilteredKeys(columnKeys)
 
 	// Call prepare chart data function
-	const newchartData = prepareChartData()
+	const newchartData = compareProductData(graphData, selectedStage)
 
 	const newChartData = {
 		labels: newchartData ? newchartData.map(item => item.label) : [],
@@ -115,7 +70,13 @@ const Barcharttwo = () => {
 					))}
 				</select>
 			</div>
-			<Bar data-testid='barchart' width={700} height={700} data={newChartData} options={options} />
+			<Bar
+				data-testid='barchart'
+				width={700}
+				height={700}
+				data={newChartData}
+				options={chartOptions('Compare Global Warming Potentials (GWP) of Different Products')}
+			/>
 		</div>
 	)
 }
