@@ -1,3 +1,7 @@
+import trackerService from '../services/TrackerServices'
+
+// Charts middleware functions
+
 const chartOptions = (title) => ({
 	responsive: true,
 	plugins: {
@@ -98,7 +102,22 @@ const compareProductData = (graphData, selectedStage) => {
 	return chartData
 }
 
-module.exports = {
+// Handle product name selection
+const handleChartSelect = (event, setSelected) => {
+	setSelected(event.target.value)
+}
+
+// Handle Update
+const handleChartUpdate = async (sessionID, setGraphData) => {
+	try {
+		const data = await trackerService.getAll(sessionID)
+		setGraphData(data)
+	} catch (error) {
+		console.error('Error fetching data', error)
+	}
+}
+
+export {
 	chartOptions,
 	compareStageData,
 	colorOne,
@@ -107,5 +126,7 @@ module.exports = {
 	specificKeys,
 	getColumnKeys,
 	getFilteredKeys,
-	compareProductData
+	compareProductData,
+	handleChartSelect,
+	handleChartUpdate
 }

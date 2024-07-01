@@ -4,7 +4,7 @@ import { Pie } from 'react-chartjs-2'
 import '../pages/tracker.css'
 import { useSessionContext } from '../context'
 import trackerService from '../services/TrackerServices'
-import { chartOptions, compareStageData, colorOne, labelsOne } from '../utils/middleware'
+import { chartOptions, compareStageData, colorOne, labelsOne, handleChartSelect, handleChartUpdate } from '../utils/middleware'
 
 ChartJS.register(
 	ArcElement,
@@ -16,7 +16,7 @@ ChartJS.register(
 const Piechart = () => {
 	const sessionID = useSessionContext()
 	const [graphData, setGraphData] = useState([])
-	const [selectedProduct, setSelectedProduct] = useState('')
+	const [selected, setSelected] = useState('')
 
 	useEffect(() => {
 		trackerService.getAll(sessionID).then(data => setGraphData(data))
@@ -24,7 +24,7 @@ const Piechart = () => {
 	}, [sessionID])
 
 	// Call prepare chart data function
-	const chartData = compareStageData(graphData, selectedProduct)
+	const chartData = compareStageData(graphData, selected)
 
 	const newChartData = {
 		labels: labelsOne,
@@ -49,25 +49,14 @@ const Piechart = () => {
 		],
 	}
 
-	// Handle product name selection
-	const handleProductSelect = event => {
-		setSelectedProduct(event.target.value)
-	}
-
-	// Handle Update
-	const handleUpdate = async () => {
-		trackerService.getAll(sessionID).then(data => setGraphData(data))
-			.catch(error => console.error('Error fetching data:', error))
-	}
-
 	return(
 		<div style={{ width: '50%', margin: 'auto' }}>
 			<div className='input3'>
-				<button className='button' onClick={handleUpdate}>Refresh Chart</button>
+				<button className='button' onClick={() => handleChartUpdate(sessionID, setGraphData)}>Refresh Chart</button>
 			</div>
 			<div className='input-container'>
 				<label>Select Product</label>
-				<select onChange={handleProductSelect} value={selectedProduct}>
+				<select onChange={(e) => handleChartSelect(e, setSelected)} value={selected}>
 					<option value="">Product Name</option>
 					{Array.from(new Set(graphData.map(item => item.product_name))).map((product, index) => (
 						<option key={index} value={product}>
