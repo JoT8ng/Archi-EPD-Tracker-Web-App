@@ -6,7 +6,7 @@ extension-pkg-whitelist = flask
 [MESSAGES CONTROL]
 
 # Disable warnings
-disable = C0301, R0903, R0902, R0913, R0914, C0116, R1710
+disable = C0301, R0903, R0902, R0913, R0914, C0116, R1710, E0401, C0103
 
 [BASIC]
 
