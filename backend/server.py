@@ -1,6 +1,11 @@
-from flask import Flask, render_template, request, session, jsonify
-from app import app, db, TrackerData
+"""
+EPData backend Flask application routes.
+"""
+
 import uuid
+from flask import render_template, request, session, jsonify
+from sqlalchemy.exc import SQLAlchemyError
+from app import app, db, TrackerData
 
 
 @app.after_request
@@ -10,7 +15,7 @@ def after_request(response):
 
 def get_create_session_id():
     session.permanent = True
-    
+
     # Generate a session id
     if "sid" not in session:
         # Generate a unique session id
@@ -18,7 +23,7 @@ def get_create_session_id():
         session_id = session["sid"]
         print(session_id)
         return session_id
-    
+
     print(session_id)
     return session_id
 
@@ -63,28 +68,28 @@ def tracker():
         print(request.form)
 
         tracker_data = TrackerData(
-            session_id=session_id, 
-            material_category=material_category, 
-            product_name=product_name, 
-            material_name=material_name, 
-            manufacturer=manufacturer, 
+            session_id=session_id,
+            material_category=material_category,
+            product_name=product_name,
+            material_name=material_name,
+            manufacturer=manufacturer,
             declared_unit=declared_unit,
-            value1=value1, 
-            unit1=unit1, 
-            value2=value2, 
-            unit2=unit2, 
-            mat_volume=mat_volume, 
-            a1to3=a1to3, 
-            a4=a4, 
-            a5=a5, 
-            b1=b1, 
-            b2=b2, 
-            b3=b3, 
-            b4=b4, 
-            b5=b5, 
+            value1=value1,
+            unit1=unit1,
+            value2=value2,
+            unit2=unit2,
+            mat_volume=mat_volume,
+            a1to3=a1to3,
+            a4=a4,
+            a5=a5,
+            b1=b1,
+            b2=b2,
+            b3=b3,
+            b4=b4,
+            b5=b5,
             b6=b6
             )
-        
+
         try:
             db.session.add(tracker_data)
             db.session.commit()
@@ -136,8 +141,7 @@ def clear_session():
         TrackerData.query.filter_by(session_id=session_id).delete()
         db.session.commit()
         return {"message": "Session data deleted successfully"}, 200
-    else:
-        return {"message": "Session data not found and deleted"}, 404
+    return {"message": "Session data not found and deleted"}, 404
 
 @app.route("/delete", methods=["DELETE"])
 def delete():
@@ -152,21 +156,21 @@ def delete():
                 material_category=data["material_category"],
                 product_name=data["product_name"],
                 material_name=data["material_name"],
-                manufacturer=data["manufacturer"], 
+                manufacturer=data["manufacturer"],
                 declared_unit=data["declared_unit"],
-                value1=data["value1"], 
-                unit1=data["unit1"], 
-                value2=data["value2"], 
-                unit2=data["unit2"], 
-                mat_volume=data["mat_volume"], 
-                a1to3=data["a1to3"], 
-                a4=data["a4"], 
-                a5=data["a5"], 
-                b1=data["b1"], 
-                b2=data["b2"], 
-                b3=data["b3"], 
-                b4=data["b4"], 
-                b5=data["b5"], 
+                value1=data["value1"],
+                unit1=data["unit1"],
+                value2=data["value2"],
+                unit2=data["unit2"],
+                mat_volume=data["mat_volume"],
+                a1to3=data["a1to3"],
+                a4=data["a4"],
+                a5=data["a5"],
+                b1=data["b1"],
+                b2=data["b2"],
+                b3=data["b3"],
+                b4=data["b4"],
+                b5=data["b5"],
                 b6=data["b6"]
             ).first()
 
@@ -174,20 +178,19 @@ def delete():
                 db.session.delete(row_to_delete)
                 db.session.commit()
                 return jsonify({"message": "Row deleted successfully"})
-            else:
-                return jsonify({"message": "Row not found in the database"})
-            
-        except Exception as e:
+            return jsonify({"message": "Row not found in the database"})
+
+        except SQLAlchemyError as e:
             return jsonify({"error": str(e)})
 
 
 if __name__ == "__main__":
     with app.app_context():
-        db.create_all()
+        db.create_all() # pylint: disable=undefined-variable
 
     if app.config["FLASK_ENV"] == "dev":
-        app.run(host=dev_server_host, port=dev_server_port, debug=True)
+        app.run(host=dev_server_host, port=dev_server_port, debug=True) # pylint: disable=undefined-variable
     elif app.config["FLASK_ENV"] == "prod":
-        app.run(host=prod_server_host, port=prod_server_port)
+        app.run(host=prod_server_host, port=prod_server_port) # pylint: disable=undefined-variable
     elif app.config["FLASK_ENV"] == "staging":
-        app.run(host=staging_server_host, port=staging_server_port)
+        app.run(host=staging_server_host, port=staging_server_port) # pylint: disable=undefined-variable
