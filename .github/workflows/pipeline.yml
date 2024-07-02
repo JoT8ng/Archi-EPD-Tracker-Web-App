@@ -55,7 +55,8 @@ jobs:
       - name: Lint backend
         working-directory: backend
         run: |
-            echo "Hello run backend lint"
+            source venv/bin/activate
+            pylint app.py server.py
       - name: Test backend
         working-directory: backend
         run: |

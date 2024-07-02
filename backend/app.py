@@ -1,12 +1,16 @@
-from flask import Flask, session
+"""
+Application entry point and configuration for the EPData backend Flask application.
+"""
+
+from os import environ
+from datetime import timedelta
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from os import environ
-from dotenv import load_dotenv
-from config import config_by_name, FLASK_ENV
-from datetime import timedelta
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
+from dotenv import load_dotenv
+from config import config_by_name, FLASK_ENV
 
 load_dotenv('.flaskenv')
 
@@ -44,6 +48,9 @@ app.permanent_session_lifetime = timedelta(days=1)
 
 # Define Tracker data table model
 class TrackerData(db.Model):
+    """
+    SQL database model for tracker data
+    """
     id = db.Column(db.Integer, primary_key=True)
     session_id = db.Column(db.String(100), nullable=False)
     material_category = db.Column(db.String(100), nullable=False)
@@ -67,8 +74,8 @@ class TrackerData(db.Model):
     b6 = db.Column(db.Float, nullable=False)
 
     def __init__(
-            self, session_id, 
-            material_category, 
+            self, session_id,
+            material_category,
             product_name,
             material_name,
             manufacturer,

@@ -1,0 +1,43 @@
+[MASTER]
+
+# Specify additional built-ins for Flask applications
+extension-pkg-whitelist = flask
+
+[MESSAGES CONTROL]
+
+# Disable warnings
+disable = C0301, R0903, R0902, R0913, R0914, C0116, R1710, E0401, C0103
+
+[BASIC]
+
+# Basic linting standards
+good-names = i,j,k,_
+
+[FORMAT]
+
+# Formatting options
+max-line-length = 120
+
+# String used as indentation unit. This is usually " " (4 spaces) or "\t" (1
+# tab)
+indent-string='    '
+
+[SIMILARITIES]
+
+# Detection of similar lines
+min-similarity-lines = 4
+
+# Ignore comments when computing similarities.
+ignore-comments=yes
+
+# Ignore docstrings when computing similarities.
+ignore-docstrings=yes
+
+[TYPECHECK]
+
+# Type checking configurations
+ignored-modules = flask
+
+[LOGGING]
+
+[IMPORTS]
