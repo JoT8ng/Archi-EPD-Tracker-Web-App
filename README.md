@@ -110,3 +110,9 @@ Update requirements.txt:
 ```
 pip freeze > requirements.txt
 ```
+
+Run Flask backend unit tests powershell command:
+```
+$env:FLASK_ENV="testing"
+python -m unittest test_server.py
+```
