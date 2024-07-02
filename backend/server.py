@@ -194,3 +194,5 @@ if __name__ == "__main__":
         app.run(host=prod_server_host, port=prod_server_port) # pylint: disable=undefined-variable
     elif app.config["FLASK_ENV"] == "staging":
         app.run(host=staging_server_host, port=staging_server_port) # pylint: disable=undefined-variable
+    elif app.config["FLASK_ENV"] == "testing":
+        app.run(host=test_server_host, port=test_server_port) # pylint: disable=undefined-variable
