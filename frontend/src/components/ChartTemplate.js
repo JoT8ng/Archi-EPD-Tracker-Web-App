@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Legend, Tooltip } from 'chart.js'
-import { Bar } from 'react-chartjs-2'
+import { Chart as ChartJS, CategoryScale, LinearScale, ArcElement, BarElement, Title, Legend, Tooltip } from 'chart.js'
 import '../pages/tracker.css'
 import { useSessionContext } from '../context'
 import trackerService from '../services/TrackerServices'
-import { chartOptions, compareStageData, colorOne, labelsOne, handleChartSelect, handleChartUpdate } from '../utils/middleware'
+import { Bar, Pie } from 'react-chartjs-2'
+import { chartOptions, colorOne, labelsOne, handleChartSelect, handleChartUpdate } from '../utils/middleware'
 
 ChartJS.register(
+	ArcElement,
 	CategoryScale,
 	LinearScale,
 	BarElement,
@@ -15,8 +16,9 @@ ChartJS.register(
 	Tooltip
 )
 
+const ChartTemplate = ({ containerWidth, chartWidth, chartHeight, type }) => {
+	const ChartComponent = type === 'bar' ? Bar : Pie
 
-const Barchart = () => {
 	const sessionID = useSessionContext()
 	const [graphData, setGraphData] = useState([])
 	const [selected, setSelected] = useState('')
@@ -26,8 +28,42 @@ const Barchart = () => {
 			.catch(error => console.error('Error fetching data:', error))
 	}, [sessionID])
 
+	// Format the data for the GWP stage comparison charts based on product name selection
+	const compareStageData = () => {
+		// Only continue with function if graphData is not null
+		if (!graphData || graphData.length === 0) return null
+
+		// Filter backend graphData based on selected product name
+		const filteredData = graphData.filter(item => {
+			return item.product_name && item.product_name === selected
+		})
+
+		// Extract values for the chart
+		const a1to3 = filteredData.map(item => item.a1to3)
+		const a4 = filteredData.map(item => item.a4)
+		const a5 = filteredData.map(item => item.a5)
+		const b1 = filteredData.map(item => item.b1)
+		const b2 = filteredData.map(item => item.b2)
+		const b3 = filteredData.map(item => item.b3)
+		const b4 = filteredData.map(item => item.b4)
+		const b5 = filteredData.map(item => item.b5)
+		const b6 = filteredData.map(item => item.b6)
+
+		return {
+			a1to3,
+			a4,
+			a5,
+			b1,
+			b2,
+			b3,
+			b4,
+			b5,
+			b6,
+		}
+	}
+
 	// Call prepare chart data function
-	const chartData = compareStageData(graphData, selected)
+	const chartData = compareStageData()
 
 	const newChartData = {
 		labels: labelsOne,
@@ -52,8 +88,8 @@ const Barchart = () => {
 		],
 	}
 
-	return(
-		<div style={{ width: '80%', margin: 'auto' }}>
+	return (
+		<div style={{ width: `${containerWidth}%`, margin: 'auto' }}>
 			<div className='input3'>
 				<button id='barchart-refresh' className='button' onClick={() => handleChartUpdate(sessionID, setGraphData)}>Refresh Chart</button>
 			</div>
@@ -68,9 +104,10 @@ const Barchart = () => {
 					))}
 				</select>
 			</div>
-			<Bar
-				data-testid='barchart'
-				width={100} height={100}
+			<ChartComponent
+				data-testid='chartone'
+				width={chartWidth}
+				height={chartHeight}
 				data={newChartData}
 				options={chartOptions('Compare Product Global Warming Potential (GWP) of Construction Stages')}
 			/>
@@ -78,4 +115,4 @@ const Barchart = () => {
 	)
 }
 
-export default Barchart
+export default ChartTemplate
