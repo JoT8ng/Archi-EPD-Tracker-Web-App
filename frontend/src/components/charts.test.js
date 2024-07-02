@@ -1,15 +1,13 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import '@testing-library/jest-dom'
-import Barchart from './barchart'
 import trackerService from '../services/TrackerServices'
-import Barcharttwo from './barchart2'
-import Piechart from './piechart'
-import Piecharttwo from './piechart2'
+import ChartTemplate from './ChartTemplate'
+import ChartTemplateTwo from './ChartTemplate2'
 
 jest.mock('../services/TrackerServices')
 
-describe(('Barchart Tests'), () => {
+describe(('ChartTemplate Tests'), () => {
 	beforeEach(() => {
 		trackerService.getAll.mockResolvedValue([
 			{
@@ -27,20 +25,34 @@ describe(('Barchart Tests'), () => {
 		])
 	})
 
-	test('barchart.js renders data', async () => {
-		const { getByTestId } = render(<Barchart />)
-		const barChartElement = getByTestId('barchart')
-		expect(barChartElement).toBeInTheDocument()
+	test('ChartTemplate renders barchart', async () => {
+		const { getByTestId } = render(
+			<ChartTemplate
+				type='bar'
+				containerWidth={80}
+				chartWidth={100}
+				chartHeight={100}
+			/>
+		)
+		const ChartElement = getByTestId('chartone')
+		expect(ChartElement).toBeInTheDocument()
 	})
 
-	test('barchart2.js renders data', async () => {
-		const { getByTestId } = render(<Barcharttwo />)
-		const barChartElement = getByTestId('barchart')
-		expect(barChartElement).toBeInTheDocument()
+	test('ChartTemplate renders piechart', async () => {
+		const { getByTestId } = render(
+			<ChartTemplate
+				type='pie'
+				containerWidth={50}
+				chartWidth={400}
+				chartHeight={400}
+			/>
+		)
+		const ChartElement = getByTestId('chartone')
+		expect(ChartElement).toBeInTheDocument()
 	})
 })
 
-describe(('Piechart Tests'), () => {
+describe(('ChartTemplateTwo Tests'), () => {
 	beforeEach(() => {
 		trackerService.getAll.mockResolvedValue([
 			{
@@ -59,14 +71,28 @@ describe(('Piechart Tests'), () => {
 	})
 
 	test('pichart.js renders data', async () => {
-		const { getByTestId } = render(<Piechart />)
-		const barChartElement = getByTestId('piechart')
-		expect(barChartElement).toBeInTheDocument()
+		const { getByTestId } = render(
+			<ChartTemplateTwo
+				type='bar'
+				containerWidth={80}
+				chartWidth={700}
+				chartHeight={700}
+			/>
+		)
+		const ChartElement = getByTestId('charttwo')
+		expect(ChartElement).toBeInTheDocument()
 	})
 
 	test('piechart2.js renders data', async () => {
-		const { getByTestId } = render(<Piecharttwo />)
-		const barChartElement = getByTestId('piechart')
-		expect(barChartElement).toBeInTheDocument()
+		const { getByTestId } = render(
+			<ChartTemplateTwo
+				type='pie'
+				containerWidth={50}
+				chartWidth={400}
+				chartHeight={400}
+			/>
+		)
+		const ChartElement = getByTestId('charttwo')
+		expect(ChartElement).toBeInTheDocument()
 	})
 })

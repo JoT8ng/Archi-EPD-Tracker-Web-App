@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './tracker.css'
-import Barchart from '../components/barchart'
-import Piechart from '../components/piechart'
-import Barcharttwo from '../components/barchart2'
-import Piecharttwo from '../components/piechart2'
+import ChartTemplate from '../components/ChartTemplate'
+import ChartTemplateTwo from '../components/ChartTemplate2'
 import Notification from '../components/Notification'
 import { useSessionContext } from '../context'
 import TrackerForm from '../components/TrackerForm'
@@ -140,10 +138,20 @@ const Tracker = () => {
 					{isExpandedOne && (
 						<div>
 							<div className='barchart-container'>
-								<Barchart />
+								<ChartTemplate
+									type='bar'
+									containerWidth={80}
+									chartWidth={100}
+									chartHeight={100}
+								/>
 							</div>
 							<div className='pichart-container'>
-								<Piechart />
+								<ChartTemplate
+									type='pie'
+									containerWidth={50}
+									chartWidth={400}
+									chartHeight={400}
+								/>
 							</div>
 						</div>
 					)}
@@ -160,10 +168,20 @@ const Tracker = () => {
 					{isExpandedTwo && (
 						<div>
 							<div className='barcharttwo-container'>
-								<Barcharttwo />
+								<ChartTemplateTwo
+									type='bar'
+									containerWidth={80}
+									chartWidth={700}
+									chartHeight={700}
+								/>
 							</div>
 							<div className='piecharttwo-container'>
-								<Piecharttwo />
+								<ChartTemplateTwo
+									type='pie'
+									containerWidth={50}
+									chartWidth={400}
+									chartHeight={400}
+								/>
 							</div>
 						</div>
 					)}
