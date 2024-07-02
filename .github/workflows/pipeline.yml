@@ -43,15 +43,6 @@ jobs:
         working-directory: backend
         run: |
             pip install -r requirements.txt
-      - name: Set up backend ENV
-        run: |
-            echo "FLASK_APP: $FLASK_APP"
-            echo "FLASK_ENV: $FLASK_ENV"
-            echo "SECRET_KEY: $SECRET_KEY"
-        env:
-          FLASK_APP: ${{ secrets.FLASK_APP }}
-          FLASK_ENV: ${{ secrets.FLASK_ENV }}
-          SECRET_KEY: ${{ secrets.SECRET_KEY }}
       - name: Lint backend
         working-directory: backend
         run: |
@@ -59,6 +50,10 @@ jobs:
             pylint app.py server.py
       - name: Test backend
         working-directory: backend
+        env:
+          FLASK_APP: ${{ secrets.FLASK_APP }}
+          FLASK_ENV: ${{ secrets.FLASK_ENV }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
         run: |
             echo "Hello run tests"
 
