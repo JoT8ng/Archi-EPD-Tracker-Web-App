@@ -47,7 +47,7 @@ jobs:
         working-directory: backend
         run: |
             source venv/bin/activate
-            pylint app.py server.py
+            pylint app.py server.py helpers.py
       - name: Test backend
         working-directory: backend
         env:
@@ -55,7 +55,7 @@ jobs:
           FLASK_ENV: ${{ secrets.FLASK_ENV }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
         run: |
-            echo "Hello run tests"
+            echo "python -m unittest test_server.py"
 
       # Cypress e2e tests
       - name: e2e tests
